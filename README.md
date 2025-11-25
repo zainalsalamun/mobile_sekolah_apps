@@ -56,57 +56,26 @@ Aplikasi memiliki tampilan UI modern:
 - Komponen reusable: AppCard, AppInput, AppButton  
 
 ---
+# 🏗 Arsitektur Aplikasi (Modular GetX)
 
-📐 Arsitektur Aplikasi 
-
-Berikut tabel arsitektur lengkap berdasarkan struktur project Flutter kamu:
-
-📂 Struktur Folder (Tabel Detail)
-Folder / File	Deskripsi
-lib/	Folder utama aplikasi Flutter
-┣ core/	Menampung sistem inti aplikasi (global logic)
-┃ ┣ bindings/	GetX bindings untuk dependency injection tiap module
-┃ ┣ config/	Konfigurasi global (warna, tema, constants)
-┃ ┣ routes/	File route GetX (AppPages & AppRoutes)
-┃ ┣ services/	Layanan global: API, storage, helper dll
-┃ ┗ widgets/	Widget reusable: AppCard, AppButton, AppInput
-┣ modules/	Semua fitur utama aplikasi dipisah per modul
-┃ ┣ auth/	Login (controller, view, binding)
-┃ ┣ dashboard_siswa/	Dashboard siswa (controller, view, widgets)
-┃ ┣ dashboard_guru/	Dashboard guru (controller, view, widgets)
-┃ ┣ absensi/	Modul absensi siswa/guru
-┃ ┣ jadwal/	Jadwal siswa & guru
-┃ ┣ nilai/	Modul nilai + detail nilai
-┃ ┗ pengumuman/	Pengumuman + detail pengumuman
-┗ main.dart	Entry point Flutter, mengatur initialRoute & theme
-
-🧩 Struktur Modul (Tabel Modularization)
-Nama Modul	Isi File	Fungsi
-auth	controller, binding, login_view	Login siswa/guru
-dashboard_siswa	controller, binding, view, widget	Dashboard utama siswa
-dashboard_guru	controller, binding, view, widget	Dashboard utama guru
-absensi	controller, view, binding	Input & rekap absensi
-jadwal	controller, view, binding	Jadwal pelajaran & mengajar
-nilai	controller, view, binding	Nilai siswa & detail nilai
-pengumuman	controller, view, detail_view, binding	Pengumuman sekolah
-⚙ Komponen Inti (Core Layer Table)
-Komponen	File	Fungsi
-Theme System	app_theme.dart, app_colors.dart	Warna global, typography
-Route Manager	app_pages.dart, app_routes.dart	Navigasi GetX
-Widgets Reusable	AppCard, AppInput, AppButton, dll	Menjaga UI konsisten
-Bindings Global	InitialBinding()	Dependency awal
-Service Layer (Opsional)	api_service.dart	Call API ke backend
-
-🧠 GetX Architecture (Tabel UML Simplified)
-Layer	Isi	Deskripsi
-View	.dart file (UI)	Menampilkan tampilan UI (Stateless/Stateful)
-Controller	xx_controller.dart	Mengatur state, logic, API call
-Binding	xx_binding.dart	Inject controller saat route dibuka
-Route	AppPages, AppRoutes	Pendefinisian path halaman
-Service	API, storage, helper	Fungsi backend atau utility
-
-yaml
-Copy code
+| Folder / File | Deskripsi |
+|---------------|-----------|
+| `lib/` | Root utama project Flutter |
+| ┣ **core/** | Kumpulan resource inti aplikasi |
+| ┃ ┣ `bindings/` | Bindings GetX untuk dependency injection tiap module |
+| ┃ ┣ `config/` | AppColors, AppTheme, Constant, Utilities |
+| ┃ ┣ `routes/` | AppPages & AppRoutes untuk navigasi GetX |
+| ┃ ┣ `widgets/` | Widget reusable (AppCard, AppInput, AppButton) |
+| ┃ ┗ `services/` | API service, local storage, helper services |
+| ┣ **modules/** | Semua fitur aplikasi (modular GetX) |
+| ┃ ┣ `auth/` | Login, controller, binding, view |
+| ┃ ┣ `dashboard_siswa/` | Dashboard khusus siswa |
+| ┃ ┣ `dashboard_guru/` | Dashboard khusus guru |
+| ┃ ┣ `absensi/` | Absensi siswa/guru |
+| ┃ ┣ `jadwal/` | Jadwal pelajaran & jadwal mengajar |
+| ┃ ┣ `nilai/` | Nilai, detail nilai, input nilai (guru) |
+| ┃ ┗ `pengumuman/` | Pengumuman + detail pengumuman |
+| `main.dart` | Entry point aplikasi + konfigurasi GetMaterialApp |
 
 ---
 
