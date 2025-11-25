@@ -3,34 +3,37 @@ import '../../config/app_colors.dart';
 
 class AppCard extends StatelessWidget {
   final Widget child;
-  final EdgeInsets padding;
   final VoidCallback? onTap;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final Color? color;
 
   const AppCard({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(16),
     this.onTap,
+    this.padding,
+    this.margin,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
-    Widget card = Container(
-      padding: padding,
+    final card = Container(
+      margin: margin,
+      padding: padding ?? const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        color: color ?? AppColors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.border),
       ),
       child: child,
     );
 
-    return onTap == null ? card : GestureDetector(onTap: onTap, child: card);
+    if (onTap != null) {
+      return GestureDetector(onTap: onTap, child: card);
+    }
+
+    return card;
   }
 }
