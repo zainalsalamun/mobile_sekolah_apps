@@ -11,12 +11,12 @@ Aplikasi mobile modern untuk **Siswa** dan **Guru**, dibangun dengan **Flutter +
 
 ---
 
-# 🖼 Screenshot UI (Premium)
+# 🖼 Screenshot UI
 
-## **📱 Dashboard Siswa (Final Premium Design)**
+## **📱 Dashboard Siswa **
 ![Dashboard Siswa](/mnt/data/A_2D_digital_screenshot_of_a_student_dashboard_app.png)
 
-## **📱 Dashboard Guru (Preview Premium Style)**
+## **📱 Dashboard Guru **
 ![Dashboard Guru](/mnt/data/A_digital_screenshot_displays_a_student_dashboard_.png)
 
 ---
@@ -57,26 +57,53 @@ Aplikasi memiliki tampilan UI modern:
 
 ---
 
-# 🏗 Arsitektur Aplikasi
+📐 Arsitektur Aplikasi 
 
-Menggunakan pola **GetX Architecture**:
+Berikut tabel arsitektur lengkap berdasarkan struktur project Flutter kamu:
 
-lib/
-┣ core/
-│ ┣ bindings/
-│ ┣ config/
-│ ┣ routes/
-│ ┣ widgets/
-│ ┗ services/
-┣ modules/
-│ ┣ auth/
-│ ┣ dashboard_siswa/
-│ ┣ dashboard_guru/
-│ ┣ absensi/
-│ ┣ jadwal/
-│ ┣ nilai/
-│ ┗ pengumuman/
-┗ main.dart
+📂 Struktur Folder (Tabel Detail)
+Folder / File	Deskripsi
+lib/	Folder utama aplikasi Flutter
+┣ core/	Menampung sistem inti aplikasi (global logic)
+┃ ┣ bindings/	GetX bindings untuk dependency injection tiap module
+┃ ┣ config/	Konfigurasi global (warna, tema, constants)
+┃ ┣ routes/	File route GetX (AppPages & AppRoutes)
+┃ ┣ services/	Layanan global: API, storage, helper dll
+┃ ┗ widgets/	Widget reusable: AppCard, AppButton, AppInput
+┣ modules/	Semua fitur utama aplikasi dipisah per modul
+┃ ┣ auth/	Login (controller, view, binding)
+┃ ┣ dashboard_siswa/	Dashboard siswa (controller, view, widgets)
+┃ ┣ dashboard_guru/	Dashboard guru (controller, view, widgets)
+┃ ┣ absensi/	Modul absensi siswa/guru
+┃ ┣ jadwal/	Jadwal siswa & guru
+┃ ┣ nilai/	Modul nilai + detail nilai
+┃ ┗ pengumuman/	Pengumuman + detail pengumuman
+┗ main.dart	Entry point Flutter, mengatur initialRoute & theme
+
+🧩 Struktur Modul (Tabel Modularization)
+Nama Modul	Isi File	Fungsi
+auth	controller, binding, login_view	Login siswa/guru
+dashboard_siswa	controller, binding, view, widget	Dashboard utama siswa
+dashboard_guru	controller, binding, view, widget	Dashboard utama guru
+absensi	controller, view, binding	Input & rekap absensi
+jadwal	controller, view, binding	Jadwal pelajaran & mengajar
+nilai	controller, view, binding	Nilai siswa & detail nilai
+pengumuman	controller, view, detail_view, binding	Pengumuman sekolah
+⚙ Komponen Inti (Core Layer Table)
+Komponen	File	Fungsi
+Theme System	app_theme.dart, app_colors.dart	Warna global, typography
+Route Manager	app_pages.dart, app_routes.dart	Navigasi GetX
+Widgets Reusable	AppCard, AppInput, AppButton, dll	Menjaga UI konsisten
+Bindings Global	InitialBinding()	Dependency awal
+Service Layer (Opsional)	api_service.dart	Call API ke backend
+
+🧠 GetX Architecture (Tabel UML Simplified)
+Layer	Isi	Deskripsi
+View	.dart file (UI)	Menampilkan tampilan UI (Stateless/Stateful)
+Controller	xx_controller.dart	Mengatur state, logic, API call
+Binding	xx_binding.dart	Inject controller saat route dibuka
+Route	AppPages, AppRoutes	Pendefinisian path halaman
+Service	API, storage, helper	Fungsi backend atau utility
 
 yaml
 Copy code
