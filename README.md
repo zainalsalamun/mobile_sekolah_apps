@@ -1,211 +1,196 @@
 Mobile Sekolah App (Flutter + GetX)
-Ringkasan Proyek
 
-Mobile Sekolah App adalah aplikasi mobile berbasis Flutter untuk Siswa dan Guru, yang menyediakan fitur:
+![Flutter](https://img.shields.io/badge/Flutter-3.x-blue?logo=flutter)
+![GetX](https://img.shields.io/badge/GetX-State%20Management-purple)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey)
+![UI](https://img.shields.io/badge/UI-Premium-blue)
+![Status](https://img.shields.io/badge/Status-Development-yellow)
 
-Dashboard Siswa
+Aplikasi mobile modern untuk **Siswa** dan **Guru**, dibangun dengan **Flutter + GetX**, berfokus pada UI premium, navigasi cepat, dan modul lengkap untuk kegiatan sekolah.
 
-Dashboard Guru
+---
 
-Absensi
+# 🖼 Screenshot UI (Premium)
 
-Jadwal
+## **📱 Dashboard Siswa (Final Premium Design)**
+![Dashboard Siswa](/mnt/data/A_2D_digital_screenshot_of_a_student_dashboard_app.png)
 
-Nilai
+## **📱 Dashboard Guru (Preview Premium Style)**
+![Dashboard Guru](/mnt/data/A_digital_screenshot_displays_a_student_dashboard_.png)
 
-Pengumuman
+---
 
-Login (Role: siswa/guru)
+# 🧩 Fitur Aplikasi
 
-UI Premium Modern (gradient, card, quick actions)
+## 👨‍🎓 **Fitur untuk Siswa**
+- Dashboard premium (gradient + avatar + notifikasi)
+- Statistik nilai & absensi
+- Jadwal pelajaran hari ini
+- Pengumuman terbaru dari sekolah
+- Akses cepat ke:
+  - Nilai
+  - Absensi
+  - Jadwal
+  - Pengumuman
 
-Aplikasi ini menggunakan Flutter + GetX untuk state management, route, dan dependency injection.
+## 👨‍🏫 **Fitur untuk Guru**
+- Dashboard premium guru (jadwal mengajar + kelas absensi)
+- Input Absensi kelas
+- Input Nilai siswa
+- Jadwal mengajar lengkap
+- Pengumuman sekolah
+- Akses cepat ke modul pengajaran
 
-🏗 Tech Stack
-Layer	Teknologi
-Frontend	Flutter 3.x
-State Management	GetX
-Route	GetX Navigation
-Dependency Injection	GetX Bindings
-Style	Custom AppTheme
-API	(Opsional) Node.js + Express + PostgreSQL
-Device	Android & iOS
-📂 Struktur Folder
+---
+
+# 🎨 Desain UI
+Aplikasi memiliki tampilan UI modern:
+
+- Gradient biru premium  
+- Rounded card (radius 16–20)  
+- Soft shadow  
+- Icon Material modern  
+- Typography bold & clean  
+- Spacing ideal (16–24)  
+- Komponen reusable: AppCard, AppInput, AppButton  
+
+---
+
+# 🏗 Arsitektur Aplikasi
+
+Menggunakan pola **GetX Architecture**:
+
 lib/
- ┣ core/
- │ ┣ bindings/
- │ ┣ routes/
- │ ┣ widgets/
- │ ┣ services/
- │ ┗ config/
- ┣ modules/
- │ ┣ auth/
- │ ┣ dashboard_siswa/
- │ ┣ dashboard_guru/
- │ ┣ absensi/
- │ ┣ jadwal/
- │ ┣ nilai/
- │ ┗ pengumuman/
- ┗ main.dart
+┣ core/
+│ ┣ bindings/
+│ ┣ config/
+│ ┣ routes/
+│ ┣ widgets/
+│ ┗ services/
+┣ modules/
+│ ┣ auth/
+│ ┣ dashboard_siswa/
+│ ┣ dashboard_guru/
+│ ┣ absensi/
+│ ┣ jadwal/
+│ ┣ nilai/
+│ ┗ pengumuman/
+┗ main.dart
 
-🚀 Fitur Utama
-👨‍🎓 Fitur untuk Siswa
+yaml
+Copy code
 
-Dashboard premium (gradient + statistik)
+---
 
-Jadwal hari ini
+# 🔗 Routing (GetX Pages)
 
-Nilai rata-rata
+| Route | Halaman |
+|-------|---------|
+| `/` | Splash |
+| `/login` | LoginView |
+| `/dashboard-siswa` | Dashboard Siswa |
+| `/dashboard-guru` | Dashboard Guru |
+| `/absensi` | Absensi |
+| `/nilai` | Nilai |
+| `/detail-nilai` | Detail Nilai |
+| `/jadwal` | Jadwal Siswa |
+| `/pengumuman` | Pengumuman |
+| `/pengumuman-detail` | Detail Pengumuman |
 
-Absensi hari ini
+---
 
-Pengumuman terbaru
+# 🧠 Binding (Dependency Injection)
 
-👨‍🏫 Fitur untuk Guru
+Setiap module memiliki binding:
 
-Dashboard premium guru
+LoginBinding()
+DashboardSiswaBinding()
+DashboardGuruBinding()
+AbsensiBinding()
+JadwalBinding()
+NilaiBinding()
+PengumumanBinding()
 
-Jadwal mengajar hari ini
+yaml
+Copy code
 
-Kelas yang harus diabsen
+Binding memastikan controller dibuat otomatis saat halaman diakses.
 
-Input Absensi
+---
 
-Pengumuman dari sekolah
+# 🛠 Instalasi & Menjalankan Project
 
-🔐 Auth (Siswa & Guru)
+## 1️⃣ Clone Repository
+```bash
+git clone <repo_url>
+cd mobile_sekolah_app
+2️⃣ Install Dependencies
+bash
+Copy code
+flutter pub get
+3️⃣ Run Aplikasi
+bash
+Copy code
+flutter run
+📦 Dependencies Utama
+Tambahkan di pubspec.yaml:
 
-Login dengan role
-
-Routing otomatis berdasarkan role
-
-📣 Pengumuman
-
-Card premium dengan icon megaphone
-
-Halaman detail pengumuman
-
-🎨 Desain UI
-
-Aplikasi menggunakan desain:
-
-Gradient premium biru
-
-Rounded card
-
-Icon modern (Material Icons)
-
-Shadow lembut
-
-Padding 16 / 18 untuk spacing ideal
-
-Typography clean (700/600/400)
-
-Contoh mockup (preview disimpan oleh user):
-
-➡️ /mnt/data/A_2D_digital_screenshot_of_a_student_dashboard_app.png
-
-🧩 Dependencies Penting
-
-Tambahkan pada pubspec.yaml:
-
+yaml
+Copy code
 dependencies:
   flutter:
     sdk: flutter
   get: ^4.7.3
-
-
-Custom widgets:
+Custom widgets (buatan internal):
 
 AppCard
 
-AppInput
-
 AppButton
+
+AppInput
 
 LoadingIndicator
 
-🛠 Cara Menjalankan Proyek
-1. Clone Repository
-git clone <repo_url>
-cd mobile_sekolah_app
+🚀 Tech Stack
+Flutter 3.x
 
-2. Install Dependencies
-flutter pub get
+Dart 3.x
 
-3. Jalankan Aplikasi
-flutter run
+GetX (Route, State, DI)
 
-🔗 Navigasi (GetX Routes)
-Route	Halaman
-/	Splash
-/login	LoginView
-/dashboard-siswa	Dashboard Siswa
-/dashboard-guru	Dashboard Guru
-/nilai	NilaiView
-/detail-nilai	Detail Nilai
-/absensi	AbsensiView
-/jadwal	JadwalView
-/pengumuman	PengumumanView
-/pengumuman-detail	Detail Pengumuman
-🧠 Binding System (GetX)
+AppTheme Custom
 
-Semua module memiliki binding:
+(Opsional) Backend Node.js + Express + PostgreSQL
 
-LoginBinding()
+⚙ API Ready
+Struktur data (controller) sudah siap dihubungkan ke API:
 
-DashboardSiswaBinding()
+Absensi → POST
 
-DashboardGuruBinding()
+Nilai → GET/POST
 
-AbsensiBinding()
+Jadwal → GET
 
-JadwalBinding()
+Pengumuman → GET
 
-NilaiBinding()
-
-PengumumanBinding()
-
-🏛 Arsitektur
-
-Aplikasi ini mengikuti pola:
-
-MVx (Model-View-Controller) dengan GetX
-
-Setiap fitur punya:
-
-Controller
-
-View
-
-Binding
-
-Model (opsional)
+Auth → Login (role-based)
 
 🧪 Testing
+Jalankan unit test:
 
-Jalankan:
-
+bash
+Copy code
 flutter test
-
-🛡 Environment
-
-Support:
-
-Android API 21+
+📱 Platform Support
+Android 5.0+ (SDK 21)
 
 iOS 12+
 
-Flutter 3.x
-
-📌 Catatan Developer
-
-Gunakan Obx() untuk reactiveness ringan.
-
-Jangan lupa register route di AppPages.
-
-Sesuaikan warna dengan AppColors.
+🤝 Kontribusi
+Pull request diterima dengan senang hati!
+Pastikan perubahan sudah diuji sebelum membuat PR.
 
 📄 License
+MIT License – bebas digunakan untuk sekolah atau internal.
 
-MIT License – bebas dipakai untuk kebutuhan sekolah / internal.
