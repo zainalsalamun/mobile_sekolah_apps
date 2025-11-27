@@ -1,191 +1,328 @@
 import 'package:flutter/material.dart';
-import '../../../core/widgets/app_card.dart';
-import '../../../core/widgets/section_header.dart';
+import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/modules/dashboard_siswa/controller/dashboard_siswa_controller.dart';
 import '../../../config/app_colors.dart';
+import '../../../core/widgets/app_card.dart';
 
-class DashboardSiswaView extends StatelessWidget {
+class DashboardSiswaView extends GetView<DashboardSiswaController> {
   const DashboardSiswaView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Dashboard Siswa")),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// GREETING
-            Text(
-              "Halo, Dewi 👋",
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textDark,
-              ),
-            ),
-            const SizedBox(height: 4),
-            const Text(
-              "Kelas: 10 IPA 1",
-              style: TextStyle(color: AppColors.textMedium),
-            ),
+      backgroundColor: AppColors.background,
+      body: Obx(() {
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //header
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(20, 60, 20, 30),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF4A80F0), Color(0xFF6BC7FF)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(28),
+                    bottomRight: Radius.circular(28),
+                  ),
+                ),
 
-            const SizedBox(height: 20),
-
-            /// SUMMARY CARD (ABSENSI BULAN INI)
-            const SectionHeader(title: "Ringkasan Absensi"),
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(
-                  child: AppCard(
-                    child: Column(
-                      children: const [
-                        Text("Hadir", style: TextStyle(fontSize: 14)),
-                        SizedBox(height: 6),
-                        Text(
-                          "20",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 32,
+                          backgroundColor: Colors.white.withOpacity(0.2),
+                          child: const Icon(
+                            Icons.person,
+                            size: 40,
+                            color: Colors.white,
                           ),
+                        ),
+                        const SizedBox(width: 16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              controller.nama.value,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Text(
+                              controller.kelas.value,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.8),
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: AppCard(
-                    child: Column(
-                      children: const [
-                        Text("Izin / Sakit", style: TextStyle(fontSize: 14)),
-                        SizedBox(height: 6),
-                        Text(
-                          "1",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
+
+                    GestureDetector(
+                      onTap: () => Get.toNamed("/pengumuman"),
+                      child: Stack(
+                        children: [
+                          const Icon(
+                            Icons.notifications_none_rounded,
+                            color: Colors.white,
+                            size: 28,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: AppCard(
-                    child: Column(
-                      children: const [
-                        Text("Alpha", style: TextStyle(fontSize: 14)),
-                        SizedBox(height: 6),
-                        Text(
-                          "1",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
+
+                          //badge
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: Container(
+                              width: 10,
+                              height: 10,
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-
-            const SizedBox(height: 24),
-
-            /// NILAI RATA-RATA
-            const SectionHeader(title: "Rata-rata Nilai"),
-            const SizedBox(height: 12),
-            AppCard(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Rata-rata Semester Ini",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    "84",
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                  ),
-                ],
               ),
-            ),
 
-            const SizedBox(height: 24),
+              const SizedBox(height: 20),
 
-            /// JADWAL HARI INI
-            const SectionHeader(title: "Jadwal Hari Ini"),
-            const SizedBox(height: 12),
-            AppCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "07:00 - 08:30",
-                    style: TextStyle(color: AppColors.textMedium),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    "Matematika",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "Pak Andi",
-                    style: TextStyle(color: AppColors.textMedium),
-                  ),
-                ],
+              //Sumaary
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: AppCard(
+                        padding: const EdgeInsets.all(18),
+                        margin: const EdgeInsets.only(right: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: const [
+                                Icon(
+                                  Icons.event_available,
+                                  size: 20,
+                                  color: AppColors.primary,
+                                ),
+                                SizedBox(width: 6),
+                                Text(
+                                  "Absensi Hari Ini",
+                                  style: TextStyle(
+                                    color: AppColors.textMedium,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              controller.statusAbsensi.value,
+                              style: const TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    //Nilai rata2
+                    Expanded(
+                      child: AppCard(
+                        padding: const EdgeInsets.all(18),
+                        margin: const EdgeInsets.only(left: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: const [
+                                Icon(
+                                  Icons.bar_chart,
+                                  size: 20,
+                                  color: AppColors.success,
+                                ),
+                                SizedBox(width: 6),
+                                Text(
+                                  "Nilai Rata-rata",
+                                  style: TextStyle(
+                                    color: AppColors.textMedium,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              "${controller.nilaiRata.value}",
+                              style: const TextStyle(
+                                color: AppColors.success,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            AppCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "08:30 - 10:00",
-                    style: TextStyle(color: AppColors.textMedium),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    "Fisika",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "Bu Santi",
-                    style: TextStyle(color: AppColors.textMedium),
-                  ),
-                ],
-              ),
-            ),
 
-            const SizedBox(height: 24),
+              const SizedBox(height: 26),
 
-            /// PENGUMUMAN
-            const SectionHeader(title: "Pengumuman Terbaru"),
-            const SizedBox(height: 12),
-            AppCard(
-              onTap: () {},
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Ulangan Umum dimulai Senin",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(height: 6),
-                  Text(
-                    "12 Nov 2025",
-                    style: TextStyle(color: AppColors.textMedium),
-                  ),
-                ],
+              //JADWAL
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Jadwal Hari Ini",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    ...controller.jadwalHariIni.map((item) {
+                      return AppCard(
+                        margin: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.all(16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  item["icon"] ?? "📘",
+                                  style: const TextStyle(fontSize: 22),
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  item["mapel"] ?? "",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              item["jam"] ?? "",
+                              style: const TextStyle(
+                                color: AppColors.textMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+
+              const SizedBox(height: 26),
+
+              // PENGUMUMAN
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Pengumuman Terbaru",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+
+                    ...controller.pengumuman.map((item) {
+                      return AppCard(
+                        margin: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.all(18),
+                        onTap:
+                            () => Get.toNamed(
+                              "/pengumuman-detail",
+                              arguments: item,
+                            ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // ICON DI KIRI
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withOpacity(0.15),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.campaign_rounded,
+                                color: AppColors.primary,
+                                size: 24,
+                              ),
+                            ),
+
+                            const SizedBox(width: 14),
+
+                            // TEKS PENGUMUMAN
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item["judul"] ?? "",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    item["tanggal"] ?? "",
+                                    style: const TextStyle(
+                                      color: AppColors.textMedium,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 40),
+            ],
+          ),
+        );
+      }),
     );
   }
 }
