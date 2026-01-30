@@ -1,0 +1,95 @@
+[
+  {
+    "tanggal": "30 Jan 2026",
+    "status": "Hadir",
+    "masuk": "06:55",
+    "pulang": "14:10"
+  },
+  {
+    "tanggal": "29 Jan 2026",
+    "status": "Hadir",
+    "masuk": "07:00",
+    "pulang": "14:05"
+  },
+  {
+    "tanggal": "28 Jan 2026",
+    "status": "Sakit",
+    "masuk": "-",
+    "pulang": "-",
+    "note": "Demam tinggi"
+  },
+  {
+    "tanggal": "27 Jan 2026",
+    "status": "Hadir",
+    "masuk": "06:45",
+    "pulang": "14:00"
+  },
+  {
+    "tanggal": "26 Jan 2026",
+    "status": "Hadir",
+    "masuk": "06:50",
+    "pulang": "14:15"
+  },
+  {
+    "tanggal": "23 Jan 2026",
+    "status": "Izin",
+    "masuk": "-",
+    "pulang": "-",
+    "note": "Acara Keluarga"
+  },
+  {
+    "tanggal": "22 Jan 2026",
+    "status": "Hadir",
+    "masuk": "07:05",
+    "pulang": "14:10"
+  },
+  {
+    "tanggal": "21 Jan 2026",
+    "status": "Hadir",
+    "masuk": "06:58",
+    "pulang": "14:00"
+  },
+  {
+    "tanggal": "20 Jan 2026",
+    "status": "Alpha",
+    "masuk": "-",
+    "pulang": "-"
+  },
+  {
+    "tanggal": "19 Jan 2026",
+    "status": "Hadir",
+    "masuk": "06:55",
+    "pulang": "14:05"
+  },
+  {
+    "tanggal": "16 Jan 2026",
+    "status": "Hadir",
+    "masuk": "06:45",
+    "pulang": "14:00"
+  },
+  {
+    "tanggal": "15 Jan 2026",
+    "status": "Hadir",
+    "masuk": "07:00",
+    "pulang": "14:10"
+  },
+  {
+    "tanggal": "14 Jan 2026",
+    "status": "Hadir",
+    "masuk": "06:50",
+    "pulang": "14:05"
+  },
+  {
+    "tanggal": "13 Jan 2026",
+    "status": "Sakit",
+    "masuk": "-",
+    "pulang": "-",
+    "note": "Flu berat"
+  },
+  {
+    "tanggal": "12 Jan 2026",
+    "status": "Hadir",
+    "masuk": "06:55",
+    "pulang": "14:00"
+  }
+]
