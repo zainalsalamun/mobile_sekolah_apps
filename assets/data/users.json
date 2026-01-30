@@ -1,0 +1,16 @@
+[
+  {
+    "username": "zainal",
+    "password": "123",
+    "role": "siswa",
+    "name": "Zainal Salamun",
+    "id": "S001"
+  },
+  {
+    "username": "guru1",
+    "password": "123",
+    "role": "guru",
+    "name": "Pak Eko",
+    "id": "G001"
+  }
+]
