@@ -1,0 +1,23 @@
+{
+    "nama": "Zainal Salamun",
+    "nis": "202310052",
+    "nisn": "0052345678",
+    "kelas": "12 IPA 2",
+    "angkatan": "2023",
+    "tempat_lahir": "Jakarta",
+    "tanggal_lahir": "15 Agustus 2008",
+    "jenis_kelamin": "Laki-laki",
+    "agama": "Islam",
+    "alamat": "Jl. Merdeka No. 45, Jakarta Selatan",
+    "email": "zainal.salamun@sekolah.sch.id",
+    "no_hp": "081234567890",
+    "wali_kelas": "Pak Budi Santoso",
+    "nama_ayah": "Abdullah Salamun",
+    "pekerjaan_ayah": "Wiraswasta",
+    "nama_ibu": "Siti Aminah",
+    "pekerjaan_ibu": "Ibu Rumah Tangga",
+    "no_hp_orangtua": "081987654321",
+    "status_siswa": "Aktif",
+    "semester_aktif": 5,
+    "foto_profil": "assets/images/profile_placeholder.png"
+}
