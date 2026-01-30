@@ -91,5 +91,66 @@
     "status": "Hadir",
     "masuk": "06:55",
     "pulang": "14:00"
+  },
+  {
+    "tanggal": "19 Des 2025",
+    "status": "Hadir",
+    "masuk": "06:50",
+    "pulang": "14:00"
+  },
+  {
+    "tanggal": "18 Des 2025",
+    "status": "Hadir",
+    "masuk": "06:55",
+    "pulang": "14:10"
+  },
+  {
+    "tanggal": "17 Des 2025",
+    "status": "Izin",
+    "masuk": "-",
+    "pulang": "-",
+    "note": "Sakit Gigi"
+  },
+  {
+    "tanggal": "16 Des 2025",
+    "status": "Hadir",
+    "masuk": "06:45",
+    "pulang": "14:05"
+  },
+  {
+    "tanggal": "15 Des 2025",
+    "status": "Hadir",
+    "masuk": "07:00",
+    "pulang": "14:15"
+  },
+  {
+    "tanggal": "12 Des 2025",
+    "status": "Hadir",
+    "masuk": "06:55",
+    "pulang": "14:00"
+  },
+  {
+    "tanggal": "11 Des 2025",
+    "status": "Hadir",
+    "masuk": "06:50",
+    "pulang": "14:10"
+  },
+  {
+    "tanggal": "10 Des 2025",
+    "status": "Alpha",
+    "masuk": "-",
+    "pulang": "-"
+  },
+  {
+    "tanggal": "09 Des 2025",
+    "status": "Hadir",
+    "masuk": "06:58",
+    "pulang": "14:05"
+  },
+  {
+    "tanggal": "08 Des 2025",
+    "status": "Hadir",
+    "masuk": "06:45",
+    "pulang": "14:00"
   }
 ]
