@@ -1,0 +1,206 @@
+[
+    {
+        "nama": "Matematika Wajib",
+        "kkm": 75,
+        "rata": 85,
+        "tugas": [
+            80,
+            85,
+            90
+        ],
+        "uts": 82,
+        "uas": 88
+    },
+    {
+        "nama": "Bahasa Indonesia",
+        "kkm": 75,
+        "rata": 88,
+        "tugas": [
+            85,
+            88,
+            92
+        ],
+        "uts": 86,
+        "uas": 90
+    },
+    {
+        "nama": "Pendidikan Agama",
+        "kkm": 75,
+        "rata": 92,
+        "tugas": [
+            90,
+            95,
+            92
+        ],
+        "uts": 90,
+        "uas": 94
+    },
+    {
+        "nama": "Fisika",
+        "kkm": 75,
+        "rata": 78,
+        "tugas": [
+            75,
+            78,
+            80
+        ],
+        "uts": 76,
+        "uas": 80
+    },
+    {
+        "nama": "Kimia",
+        "kkm": 75,
+        "rata": 80,
+        "tugas": [
+            78,
+            80,
+            82
+        ],
+        "uts": 79,
+        "uas": 81
+    },
+    {
+        "nama": "Biologi",
+        "kkm": 75,
+        "rata": 84,
+        "tugas": [
+            82,
+            85,
+            85
+        ],
+        "uts": 83,
+        "uas": 85
+    },
+    {
+        "nama": "Sejarah Indonesia",
+        "kkm": 75,
+        "rata": 86,
+        "tugas": [
+            85,
+            86,
+            88
+        ],
+        "uts": 84,
+        "uas": 87
+    },
+    {
+        "nama": "Bahasa Inggris",
+        "kkm": 75,
+        "rata": 90,
+        "tugas": [
+            88,
+            90,
+            92
+        ],
+        "uts": 90,
+        "uas": 90
+    },
+    {
+        "nama": "Matematika Peminatan",
+        "kkm": 78,
+        "rata": 82,
+        "tugas": [
+            80,
+            82,
+            85
+        ],
+        "uts": 80,
+        "uas": 84
+    },
+    {
+        "nama": "Seni Budaya",
+        "kkm": 75,
+        "rata": 88,
+        "tugas": [
+            85,
+            90,
+            90
+        ],
+        "uts": 88,
+        "uas": 88
+    },
+    {
+        "nama": "PKn",
+        "kkm": 75,
+        "rata": 85,
+        "tugas": [
+            82,
+            85,
+            88
+        ],
+        "uts": 84,
+        "uas": 86
+    },
+    {
+        "nama": "Penjasorkes",
+        "kkm": 75,
+        "rata": 88,
+        "tugas": [
+            90,
+            85,
+            88
+        ],
+        "uts": 88,
+        "uas": 90
+    },
+    {
+        "nama": "Ekonomi",
+        "kkm": 75,
+        "rata": 84,
+        "tugas": [
+            82,
+            84,
+            86
+        ],
+        "uts": 82,
+        "uas": 85
+    },
+    {
+        "nama": "Geografi",
+        "kkm": 75,
+        "rata": 83,
+        "tugas": [
+            80,
+            82,
+            85
+        ],
+        "uts": 82,
+        "uas": 84
+    },
+    {
+        "nama": "Sosiologi",
+        "kkm": 75,
+        "rata": 86,
+        "tugas": [
+            85,
+            86,
+            88
+        ],
+        "uts": 85,
+        "uas": 87
+    },
+    {
+        "nama": "Prakarya & Kewirausahaan",
+        "kkm": 75,
+        "rata": 87,
+        "tugas": [
+            85,
+            88,
+            90
+        ],
+        "uts": 86,
+        "uas": 88
+    },
+    {
+        "nama": "Bahasa Daerah",
+        "kkm": 75,
+        "rata": 85,
+        "tugas": [
+            82,
+            85,
+            88
+        ],
+        "uts": 84,
+        "uas": 86
+    }
+]
