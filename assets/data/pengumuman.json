@@ -26,5 +26,19 @@
         "tanggal": "25 Feb 2026",
         "isi": "Terdapat perubahan jadwal untuk ekstrakurikuler Basket dan Futsal. Silakan cek mading sekolah atau hubungi pembina masing-masing untuk informasi lebih lanjut.",
         "kategori": "Ekstrakurikuler"
+    },
+    {
+        "id": 5,
+        "judul": "Upacara Peringatan Hari Pahlawan",
+        "tanggal": "08 Nov 2025",
+        "isi": "Dalam rangka memperingati Hari Pahlawan, sekolah akan mengadakan upacara bendera pada hari Senin, 10 November 2025. Seluruh siswa diwajibkan hadir mengenakan seragam lengkap dan tertib selama upacara berlangsung.",
+        "kategori": "Umum"
+    },
+    {
+        "id": 6,
+        "judul": "Sosialisasi Bahaya Narkoba",
+        "tanggal": "15 Nov 2025",
+        "isi": "Akan diadakan seminar dan sosialisasi mengenai bahaya narkoba bagi remaja yang bekerja sama dengan BNN. Acara ini wajib diikuti oleh seluruh siswa kelas 10, 11, dan 12 di Aula Sekolah pada pukul 09.00 WIB.",
+        "kategori": "Kesiswaan"
     }
 ]
