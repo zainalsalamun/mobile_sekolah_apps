@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "title": "Absensi Berhasil",
+        "message": "Anda telah melakukan absensi masuk pada pukul 07:00",
+        "date": "Hari ini, 07:01",
+        "isRead": false,
+        "type": "absensi"
+    },
+    {
+        "id": 2,
+        "title": "Tugas Baru: Matematika",
+        "message": "Pak Budi memposting tugas baru di Google Classroom",
+        "date": "Hari ini, 09:30",
+        "isRead": false,
+        "type": "tugas"
+    },
+    {
+        "id": 3,
+        "title": "Pengingat Pembayaran",
+        "message": "Jangan lupa pembayaran SPP bulan ini paling lambat tanggal 10",
+        "date": "Kemarin",
+        "isRead": true,
+        "type": "keuangan"
+    },
+    {
+        "id": 4,
+        "title": "Nilai Ujian Keluar",
+        "message": "Nilai ujian Fisika Anda sudah dapat dilihat",
+        "date": "2 hari yang lalu",
+        "isRead": true,
+        "type": "nilai"
+    }
+]
