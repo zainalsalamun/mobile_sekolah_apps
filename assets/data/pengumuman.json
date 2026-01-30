@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "judul": "Libur Awal Puasa",
+        "tanggal": "10 Mar 2026",
+        "isi": "Diberitahukan kepada seluruh siswa bahwa libur awal puasa akan dimulai pada tanggal 12 Maret 2026. Kegiatan belajar mengajar akan aktif kembali pada tanggal 15 Maret 2026 with penyesuaian jadwal selama bulan Ramadan.",
+        "kategori": "Umum"
+    },
+    {
+        "id": 2,
+        "judul": "Persiapan Ujian Tengah Semester",
+        "tanggal": "05 Mar 2026",
+        "isi": "Ujian Tengah Semester (UTS) akan dilaksanakan mulai tanggal 20 Maret 2026. Harap seluruh siswa mempersiapkan diri dengan baik dan melunasi administrasi sekolah sebelum tanggal tersebut.",
+        "kategori": "Akademik"
+    },
+    {
+        "id": 3,
+        "judul": "Lomba Kebersihan Kelas",
+        "tanggal": "01 Mar 2026",
+        "isi": "Dalam rangka ulang tahun sekolah, akan diadakan lomba kebersihan kelas yang akan dinilai setiap hari Jumat selama bulan Maret. Kelas pemenang akan mendapatkan hadiah menarik.",
+        "kategori": "Kesiswaan"
+    },
+    {
+        "id": 4,
+        "judul": "Jadwal Ekstrakurikuler Baru",
+        "tanggal": "25 Feb 2026",
+        "isi": "Terdapat perubahan jadwal untuk ekstrakurikuler Basket dan Futsal. Silakan cek mading sekolah atau hubungi pembina masing-masing untuk informasi lebih lanjut.",
+        "kategori": "Ekstrakurikuler"
+    }
+]
