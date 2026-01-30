@@ -1,0 +1,173 @@
+[
+    {
+        "hari": "Senin",
+        "mapel": "Upacara Bendera",
+        "jam": "07:00 - 07:45",
+        "icon": "🇮🇩",
+        "guru": "-",
+        "kelas": "Lapangan",
+        "tugas": null
+    },
+    {
+        "hari": "Senin",
+        "mapel": "Matematika Wajib",
+        "jam": "07:45 - 09:15",
+        "icon": "📐",
+        "guru": "Pak Budi Santoso",
+        "kelas": "12 IPA 2",
+        "tugas": "PR Halaman 45-47 No. 1-10"
+    },
+    {
+        "hari": "Senin",
+        "mapel": "Bahasa Indonesia",
+        "jam": "09:30 - 11:00",
+        "icon": "📚",
+        "guru": "Bu Siti Aminah",
+        "kelas": "12 IPA 2",
+        "tugas": "Membuat Resensi Cerpen"
+    },
+    {
+        "hari": "Senin",
+        "mapel": "Pendidikan Agama",
+        "jam": "11:00 - 12:30",
+        "icon": "🕌",
+        "guru": "Ust. Ahmad Fauzi",
+        "kelas": "12 IPA 2",
+        "tugas": null
+    },
+    {
+        "hari": "Selasa",
+        "mapel": "Fisika",
+        "jam": "07:00 - 08:30",
+        "icon": "⚛️",
+        "guru": "Pak Bambang Wijaya",
+        "kelas": "Lab Fisika",
+        "tugas": "Laporan Praktikum"
+    },
+    {
+        "hari": "Selasa",
+        "mapel": "Kimia",
+        "jam": "08:30 - 10:00",
+        "icon": "🧪",
+        "guru": "Bu Ratna Sari",
+        "kelas": "Lab Kimia",
+        "tugas": null
+    },
+    {
+        "hari": "Selasa",
+        "mapel": "Biologi",
+        "jam": "10:15 - 11:45",
+        "icon": "🧬",
+        "guru": "Bu Maya Indah",
+        "kelas": "12 IPA 2",
+        "tugas": "Presentasi Kelompok"
+    },
+    {
+        "hari": "Selasa",
+        "mapel": "Sejarah Indonesia",
+        "jam": "12:30 - 14:00",
+        "icon": "📜",
+        "guru": "Pak Joko Susilo",
+        "kelas": "12 IPA 2",
+        "tugas": null
+    },
+    {
+        "hari": "Rabu",
+        "mapel": "Bahasa Inggris",
+        "jam": "07:00 - 08:30",
+        "icon": "🇬🇧",
+        "guru": "Mr. John Smith",
+        "kelas": "12 IPA 2",
+        "tugas": "Essay about Holiday"
+    },
+    {
+        "hari": "Rabu",
+        "mapel": "Matematika Peminatan",
+        "jam": "08:30 - 10:00",
+        "icon": "📈",
+        "guru": "Pak Budi Santoso",
+        "kelas": "12 IPA 2",
+        "tugas": null
+    },
+    {
+        "hari": "Rabu",
+        "mapel": "Seni Budaya",
+        "jam": "10:15 - 11:45",
+        "icon": "🎨",
+        "guru": "Bu Tini Kartini",
+        "kelas": "R. Seni",
+        "tugas": "Bawa Cat Air"
+    },
+    {
+        "hari": "Rabu",
+        "mapel": "PKn",
+        "jam": "12:30 - 14:00",
+        "icon": "⚖️",
+        "guru": "Pak Dedi Mulyadi",
+        "kelas": "12 IPA 2",
+        "tugas": null
+    },
+    {
+        "hari": "Kamis",
+        "mapel": "Penjasorkes",
+        "jam": "07:00 - 08:30",
+        "icon": "⚽",
+        "guru": "Pak Roni Kurniawan",
+        "kelas": "Lapangan",
+        "tugas": "Bawa Baju Olahraga"
+    },
+    {
+        "hari": "Kamis",
+        "mapel": "Ekonomi",
+        "jam": "08:30 - 10:00",
+        "icon": "💰",
+        "guru": "Bu Sri Wahyuni",
+        "kelas": "12 IPA 2",
+        "tugas": null
+    },
+    {
+        "hari": "Kamis",
+        "mapel": "Geografi",
+        "jam": "10:15 - 11:45",
+        "icon": "🌍",
+        "guru": "Pak Hadi Sucipto",
+        "kelas": "12 IPA 2",
+        "tugas": null
+    },
+    {
+        "hari": "Kamis",
+        "mapel": "Sosiologi",
+        "jam": "12:30 - 14:00",
+        "icon": "👥",
+        "guru": "Bu Lina Marlina",
+        "kelas": "12 IPA 2",
+        "tugas": null
+    },
+    {
+        "hari": "Jumat",
+        "mapel": "Prakarya & Kewirausahaan",
+        "jam": "07:00 - 08:30",
+        "icon": "💡",
+        "guru": "Pak Indra Gunawan",
+        "kelas": "Workshop",
+        "tugas": "Membawa bahan kerajinan"
+    },
+    {
+        "hari": "Jumat",
+        "mapel": "Bahasa Daerah",
+        "jam": "08:30 - 10:00",
+        "icon": "🗣️",
+        "guru": "Bu Endang Sulastri",
+        "kelas": "12 IPA 2",
+        "tugas": null
+    },
+    {
+        "hari": "Jumat",
+        "mapel": "Bimbingan Konseling",
+        "jam": "10:15 - 11:00",
+        "icon": "🤝",
+        "guru": "Bu Rina Psikolog",
+        "kelas": "R. BK",
+        "tugas": null
+    }
+]
