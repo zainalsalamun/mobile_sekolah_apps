@@ -1,5 +1,10 @@
+import 'package:mobile_sekolah_apps/modules/profile/views/profile_view.dart';
 import 'package:get/get.dart';
 import 'package:mobile_sekolah_apps/core/bindings/absensi_binding.dart';
+import 'package:mobile_sekolah_apps/modules/setting/bindings/setting_binding.dart';
+import 'package:mobile_sekolah_apps/modules/setting/views/setting_view.dart';
+import 'package:mobile_sekolah_apps/modules/setting/views/change_password_view.dart';
+import 'package:mobile_sekolah_apps/modules/setting/views/about_view.dart';
 import 'package:mobile_sekolah_apps/core/bindings/dashboard_guru_binding.dart';
 import 'package:mobile_sekolah_apps/core/bindings/dashboard_siswa_binding.dart';
 import 'package:mobile_sekolah_apps/core/bindings/jadwal_binding.dart';
@@ -7,7 +12,8 @@ import 'package:mobile_sekolah_apps/core/bindings/login_binding.dart';
 import 'package:mobile_sekolah_apps/core/bindings/nilai_binding.dart';
 import 'package:mobile_sekolah_apps/core/bindings/pengumuman_binding.dart';
 import 'package:mobile_sekolah_apps/core/routes/app_routes.dart';
-import 'package:mobile_sekolah_apps/modules/absensi/views/absendi_view.dart';
+import 'package:mobile_sekolah_apps/modules/absensi/views/absensi_siswa_view.dart';
+import 'package:mobile_sekolah_apps/modules/absensi/views/absensi_view.dart';
 import 'package:mobile_sekolah_apps/modules/auth/views/login_view.dart';
 import 'package:mobile_sekolah_apps/modules/dashboard_guru/views/dashboard_guru_view.dart';
 import 'package:mobile_sekolah_apps/modules/dashboard_siswa/views/dashboard_siswa_view.dart';
@@ -41,6 +47,11 @@ class AppPages {
       page: () => const AbsensiView(),
       binding: AbsensiBinding(),
     ),
+    GetPage(
+      name: AppRoutes.absensiSiswa,
+      page: () => const AbsensiSiswaView(),
+      binding: AbsensiBinding(),
+    ),
 
     GetPage(
       name: AppRoutes.nilai,
@@ -68,5 +79,13 @@ class AppPages {
       page: () => const PengumumanDetailView(),
       binding: PengumumanBinding(),
     ),
+    GetPage(
+      name: AppRoutes.setting,
+      page: () => const SettingView(),
+      binding: SettingBinding(),
+    ),
+    GetPage(name: AppRoutes.profile, page: () => const ProfileView()),
+    GetPage(name: '/change-password', page: () => const ChangePasswordView()),
+    GetPage(name: '/about', page: () => const AboutView()),
   ];
 }
