@@ -6,7 +6,9 @@ class SettingController extends GetxController {
   }
 
   void navigateTo(String route) {
-    if (route == '/profile') {
+    if (route == '/profile' ||
+        route == '/change-password' ||
+        route == '/about') {
       Get.toNamed(route);
       return;
     }
