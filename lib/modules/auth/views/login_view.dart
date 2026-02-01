@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_sekolah_apps/core/widgets/app_input.dart';
+import 'package:mobile_sekolah_apps/modules/auth/controller/login_controller.dart';
 import '../../../config/app_colors.dart';
 import '../../../core/widgets/app_button.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
     final emailC = TextEditingController();
     final passC = TextEditingController();
+
+    // Default values for testing convenience
+    emailC.text = "zainal";
+    passC.text = "123";
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -34,9 +39,9 @@ class LoginView extends StatelessWidget {
             const SizedBox(height: 40),
 
             AppInput(
-              label: "Email",
+              label: "Username / Email",
               controller: emailC,
-              hint: "Masukkan email",
+              hint: "Masukkan username",
             ),
 
             const SizedBox(height: 18),
@@ -50,12 +55,31 @@ class LoginView extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            AppButton(
-              text: "Login",
-              onPressed: () {
-                // sementara arahkan ke dashboard siswa
-                Get.offAllNamed("/dashboard-siswa");
-              },
+            Obx(
+              () => AppButton(
+                text: "Login",
+                isLoading: controller.isLoading.value,
+                onPressed: () {
+                  if (emailC.text.isEmpty || passC.text.isEmpty) {
+                    Get.snackbar(
+                      "Error",
+                      "Username dan Password harus diisi",
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                    );
+                    return;
+                  }
+                  controller.login(emailC.text, passC.text);
+                },
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Hint for testing
+            const Text(
+              "Hint: siswa1/123 atau guru1/123",
+              style: TextStyle(color: Colors.grey, fontSize: 12),
             ),
           ],
         ),
