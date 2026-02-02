@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_sekolah_apps/modules/dashboard_guru/controller/dashboard_guru_controller.dart';
+import '../../../core/routes/app_routes.dart';
 import '../../../config/app_colors.dart';
 import '../../../core/widgets/app_card.dart';
 
@@ -69,24 +70,37 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                       ],
                     ),
 
-                    // Notification
-                    Stack(
+                    // Notification & Logout
+                    Row(
                       children: [
-                        const Icon(
-                          Icons.notifications_none_rounded,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          child: Container(
-                            width: 10,
-                            height: 10,
-                            decoration: const BoxDecoration(
-                              color: Colors.red,
-                              shape: BoxShape.circle,
+                        Stack(
+                          children: [
+                            const Icon(
+                              Icons.notifications_none_rounded,
+                              color: Colors.white,
+                              size: 28,
                             ),
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              child: Container(
+                                width: 10,
+                                height: 10,
+                                decoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 16),
+                        GestureDetector(
+                          onTap: () => Get.toNamed(AppRoutes.setting),
+                          child: const Icon(
+                            Icons.settings_rounded,
+                            color: Colors.white,
+                            size: 28,
                           ),
                         ),
                       ],
@@ -130,7 +144,7 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                       const SizedBox(height: 14),
 
                       ElevatedButton(
-                        onPressed: () => Get.toNamed("/absensi"),
+                        onPressed: () => Get.toNamed(AppRoutes.absensi),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
                           shape: RoundedRectangleBorder(
