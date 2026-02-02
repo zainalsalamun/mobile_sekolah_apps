@@ -34,4 +34,8 @@ class DashboardGuruController extends GetxController {
         {"judul": "Rapat Guru Besok", "tanggal": "11 Nov 2025"},
         {"judul": "Ulangan Semester", "tanggal": "15 Nov 2025"},
       ].obs;
+
+  void logout() {
+    Get.offAllNamed('/login');
+  }
 }
