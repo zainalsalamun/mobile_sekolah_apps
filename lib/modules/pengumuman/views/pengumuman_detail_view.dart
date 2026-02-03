@@ -8,7 +8,7 @@ class PengumumanDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final data = Get.arguments;
+    final data = Get.arguments ?? {};
 
     return Scaffold(
       appBar: AppBar(title: const Text("Detail Pengumuman")),
@@ -22,7 +22,7 @@ class PengumumanDetailView extends StatelessWidget {
             children: [
               // Judul
               Text(
-                data["judul"],
+                data["judul"] ?? '-',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -34,7 +34,7 @@ class PengumumanDetailView extends StatelessWidget {
 
               // Tanggal
               Text(
-                data["tanggal"],
+                data["tanggal"] ?? '-',
                 style: const TextStyle(color: AppColors.textMedium),
               ),
 
@@ -42,7 +42,7 @@ class PengumumanDetailView extends StatelessWidget {
 
               // Isi pengumuman
               Text(
-                data["isi"],
+                data["isi"] ?? '-',
                 style: const TextStyle(fontSize: 16, height: 1.5),
               ),
             ],
