@@ -352,6 +352,34 @@ class AbsensiSiswaView extends GetView<AbsensiController> {
     return months[month - 1];
   }
 
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final days = [
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jumat",
+      "Sabtu",
+      "Minggu",
+    ];
+    final months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "Mei",
+      "Jun",
+      "Jul",
+      "Ags",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Des",
+    ];
+    return "${days[now.weekday - 1]}, ${now.day} ${months[now.month - 1]} ${now.year}";
+  }
+
   Widget _buildClockInSection() {
     return Obx(() {
       String statusText = "Silahkan absen masuk sekarang";
@@ -388,8 +416,8 @@ class AbsensiSiswaView extends GetView<AbsensiController> {
             ),
             const SizedBox(height: 8),
             Text(
-              "Kamis, 13 Nov 2025",
-              style: TextStyle(fontSize: 14, color: AppColors.textMedium),
+              _getFormattedDate(),
+              style: const TextStyle(fontSize: 14, color: AppColors.textMedium),
             ),
             const SizedBox(height: 24),
 
