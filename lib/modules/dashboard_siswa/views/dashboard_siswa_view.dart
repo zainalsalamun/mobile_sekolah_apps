@@ -57,6 +57,15 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
+                                _getFormattedDate(),
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.9),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
                                 controller.nama.value,
                                 style: const TextStyle(
                                   color: Colors.white,
@@ -393,5 +402,33 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
       default:
         return "";
     }
+  }
+
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final days = [
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jumat",
+      "Sabtu",
+      "Minggu",
+    ];
+    final months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "Mei",
+      "Jun",
+      "Jul",
+      "Ags",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Des",
+    ];
+    return "${days[now.weekday - 1]}, ${now.day} ${months[now.month - 1]} ${now.year}";
   }
 }
