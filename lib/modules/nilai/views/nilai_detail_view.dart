@@ -11,8 +11,25 @@ class NilaiDetailView extends GetView<NilaiController> {
   @override
   Widget build(BuildContext context) {
     final String mapelName = Get.arguments ?? "";
+    final Map<String, dynamic> detail = controller.getDetailNilai(mapelName);
 
-    final List<dynamic> data = controller.detailNilai["data"] as List<dynamic>;
+    // Construct display list
+    List<Map<String, dynamic>> data = [];
+
+    if (detail.isNotEmpty) {
+      if (detail["tugas"] != null) {
+        List t = detail["tugas"];
+        for (int i = 0; i < t.length; i++) {
+          data.add({"tipe": "Tugas ${i + 1}", "nilai": t[i]});
+        }
+      }
+      if (detail["uts"] != null)
+        data.add({"tipe": "UTS", "nilai": detail["uts"]});
+      if (detail["uas"] != null)
+        data.add({"tipe": "UAS", "nilai": detail["uas"]});
+    }
+
+    final int kkm = detail["kkm"] ?? 75;
 
     return Scaffold(
       appBar: AppBar(title: Text("Nilai - $mapelName")),
@@ -24,7 +41,7 @@ class NilaiDetailView extends GetView<NilaiController> {
           children: [
             /// KKM
             Text(
-              "KKM: ${controller.detailNilai["kkm"]}",
+              "KKM: $kkm",
               style: const TextStyle(fontSize: 16, color: AppColors.textMedium),
             ),
 
@@ -35,7 +52,7 @@ class NilaiDetailView extends GetView<NilaiController> {
               children: List.generate(data.length, (index) {
                 var item = data[index];
 
-                bool lulus = item["nilai"] >= controller.detailNilai["kkm"];
+                bool lulus = (item["nilai"] as int) >= kkm;
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
