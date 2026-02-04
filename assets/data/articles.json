@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Lomba Kemerdekaan RI Ke-79",
+    "image": "https://loremflickr.com/600/300/school,ceremony",
+    "content": "Dalam rangka memeriahkan HUT RI ke-79, sekolah akan mengadakan berbagai lomba menarik seperti balap karung, makan kerupuk, dan panjat pinang. Ayo daftarkan dirimu segera!",
+    "date": "2024-08-10",
+    "author": "Panitia HUT RI"
+  },
+  {
+    "id": 2,
+    "title": "Jadwal Ujian Tengah Semester Ganjil",
+    "image": "https://loremflickr.com/600/300/school,exam",
+    "content": "Ujian Tengah Semester Ganjil akan dilaksanakan mulai tanggal 15 September 2024. Harap persiapkan diri dengan baik dan jangan lupa membawa kartu ujian.",
+    "date": "2024-09-01",
+    "author": "Kurikulum"
+  },
+  {
+    "id": 3,
+    "title": "Penerimaan Peserta Didik Baru (PPDB)",
+    "image": "https://loremflickr.com/600/300/school,building",
+    "content": "Penerimaan Peserta Didik Baru tahun ajaran 2025/2026 telah dibuka. Informasi lebih lanjut dapat dilihat di website resmi sekolah atau datang langsung ke sekretariat PPDB.",
+    "date": "2024-06-01",
+    "author": "Panitia PPDB"
+  },
+  {
+    "id": 4,
+    "title": "Tips Belajar Efektif",
+    "image": "https://loremflickr.com/600/300/school,study",
+    "content": "Belajar efektif bukan berarti belajar terus menerus tanpa henti. Simak tips berikut untuk meningkatkan kualitas belajarmu: 1. Buat jadwal, 2. Cari tempat nyaman, 3. Istirahat cukup.",
+    "date": "2024-10-05",
+    "author": "Bimbingan Konseling"
+  },
+  {
+    "id": 5,
+    "title": "Ekstrakurikuler Robotik Raih Juara",
+    "image": "https://loremflickr.com/600/300/robot,technology",
+    "content": "Tim Robotik sekolah kita berhasil meraih juara 1 dalam kompetisi robotik tingkat nasional. Selamat kepada para pemenang yang telah mengharumkan nama sekolah!",
+    "date": "2024-11-20",
+    "author": "Humas"
+  }
+]
