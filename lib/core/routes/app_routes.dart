@@ -14,4 +14,8 @@ abstract class AppRoutes {
   static const pengumumanDetail = '/pengumuman-detail';
   static const setting = '/setting';
   static const profile = '/profile';
+  static const izin = '/izin';
+  static const artikel = '/artikel';
+  static const artikelDetail = '/artikel-detail';
+  static const kelasVirtual = '/kelas-virtual';
 }

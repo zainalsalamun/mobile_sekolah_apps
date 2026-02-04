@@ -22,7 +22,15 @@ import 'package:mobile_sekolah_apps/modules/nilai/views/nilai_detail_view.dart';
 import 'package:mobile_sekolah_apps/modules/nilai/views/nilai_view.dart';
 import 'package:mobile_sekolah_apps/modules/pengumuman/views/pengumuman_detail_view.dart';
 import 'package:mobile_sekolah_apps/modules/pengumuman/views/pengumuman_view.dart';
+
 import 'package:mobile_sekolah_apps/modules/splash/views/splash_view.dart';
+import 'package:mobile_sekolah_apps/modules/izin_siswa/bindings/izin_siswa_binding.dart';
+import 'package:mobile_sekolah_apps/modules/izin_siswa/views/izin_siswa_view.dart';
+import 'package:mobile_sekolah_apps/modules/artikel/bindings/artikel_binding.dart';
+import 'package:mobile_sekolah_apps/modules/artikel/views/artikel_view.dart';
+import 'package:mobile_sekolah_apps/modules/artikel/views/artikel_detail_view.dart';
+import 'package:mobile_sekolah_apps/modules/kelas_virtual/bindings/kelas_virtual_binding.dart';
+import 'package:mobile_sekolah_apps/modules/kelas_virtual/views/kelas_virtual_view.dart';
 
 class AppPages {
   static final pages = [
@@ -87,5 +95,24 @@ class AppPages {
     GetPage(name: AppRoutes.profile, page: () => const ProfileView()),
     GetPage(name: '/change-password', page: () => const ChangePasswordView()),
     GetPage(name: '/about', page: () => const AboutView()),
+    GetPage(
+      name: AppRoutes.izin,
+      page: () => const IzinSiswaView(),
+      binding: IzinSiswaBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.artikel,
+      page: () => const ArtikelView(),
+      binding: ArtikelBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.artikelDetail,
+      page: () => const ArtikelDetailView(),
+    ),
+    GetPage(
+      name: AppRoutes.kelasVirtual,
+      page: () => const KelasVirtualView(),
+      binding: KelasVirtualBinding(),
+    ),
   ];
 }
