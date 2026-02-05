@@ -54,9 +54,20 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
                     child: Stack(
                       alignment: Alignment.bottomCenter,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: _buildMenuGrid(),
+                        SingleChildScrollView(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: _buildMenuGrid(),
+                              ),
+                              _buildMadingSection(),
+                              const SizedBox(height: 20),
+                              _buildPengumumanSection(),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -283,7 +294,7 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
         "title": "Artikel",
         "icon": Icons.article_outlined,
         "color": const Color(0xFFE17055),
-        "route": null,
+        "route": AppRoutes.artikel,
       },
       {
         "title": "E-Book",
@@ -319,7 +330,7 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
         "title": "Kelas Virtual",
         "icon": Icons.monitor_rounded,
         "color": const Color(0xFFFD79A8),
-        "route": null,
+        "route": AppRoutes.kelasVirtual,
       },
       {
         "title": "Games",
@@ -330,7 +341,8 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
     ];
 
     return GridView.builder(
-      physics: const BouncingScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       itemCount: menuItems.length,
       padding: EdgeInsets.zero,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -394,6 +406,314 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildMadingSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              const Text(
+                "Informasi Sekolah",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textDark,
+                ),
+              ),
+              const Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(AppRoutes.artikel);
+                },
+                child: const Text(
+                  "Lihat Semua",
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        Obx(() {
+          if (controller.articles.isEmpty) {
+            return const SizedBox.shrink();
+          }
+          return SizedBox(
+            height: 160,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              itemCount:
+                  controller.articles.length > 5
+                      ? 5
+                      : controller.articles.length, // Show max 5
+              itemBuilder: (context, index) {
+                final article = controller.articles[index];
+                return Container(
+                  width: 280,
+                  margin: const EdgeInsets.only(right: 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    // Base gradient as fallback
+                    gradient: LinearGradient(
+                      colors: [Colors.blue.shade400, Colors.blue.shade800],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Stack(
+                    children: [
+                      // Network Image
+                      Positioned.fill(
+                        child: Image.network(
+                          article['image'] ?? "",
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const SizedBox(); // Show gradient behind
+                          },
+                        ),
+                      ),
+
+                      // Gradient Overlay for text readability
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.transparent,
+                                Colors.black.withOpacity(0.7),
+                              ],
+                              stops: const [0.5, 1.0],
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed(
+                              AppRoutes.artikelDetail,
+                              arguments: article,
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(
+                                      color: Colors.white.withOpacity(0.5),
+                                      width: 0.5,
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "Mading Online",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  article['title'] ?? "No Title",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "Klik untuk melihat detail informasi",
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.8),
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+        }),
+      ],
+    );
+  }
+
+  Widget _buildPengumumanSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              const Text(
+                "Pengumuman Terbaru",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textDark,
+                ),
+              ),
+              const Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(AppRoutes.pengumuman);
+                },
+                child: const Text(
+                  "Lihat Semua",
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+        Obx(() {
+          if (controller.pengumuman.isEmpty) {
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text("Tidak ada pengumuman"),
+            );
+          }
+          return ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            itemCount:
+                controller.pengumuman.length > 3
+                    ? 3
+                    : controller.pengumuman.length,
+            separatorBuilder: (context, index) => const SizedBox(height: 12),
+            itemBuilder: (context, index) {
+              final item = controller.pengumuman[index];
+              return Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey.shade200),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.05),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: InkWell(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.pengumumanDetail, arguments: item);
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.campaign_rounded,
+                          color: AppColors.primary,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item['judul'] ?? 'No Title',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: AppColors.textDark,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              item['isi'] ?? '',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey.shade600,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              item['tanggal'] ?? '',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey.shade400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 14,
+                        color: Colors.grey.shade400,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }),
+      ],
     );
   }
 
