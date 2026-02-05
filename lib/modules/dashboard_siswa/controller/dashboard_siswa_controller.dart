@@ -12,6 +12,7 @@ class DashboardSiswaController extends GetxController {
   var jadwalHariIni = <Map<String, dynamic>>[].obs;
 
   var pengumuman = <Map<String, dynamic>>[].obs;
+  var articles = <Map<String, dynamic>>[].obs;
   var notifikasi = <Map<String, dynamic>>[].obs;
   var unreadNotifCount = 0.obs;
 
@@ -21,6 +22,7 @@ class DashboardSiswaController extends GetxController {
     loadJadwal();
     loadProfile();
     loadPengumuman();
+    loadArticles();
     loadNotifikasi();
   }
 
@@ -193,6 +195,18 @@ class DashboardSiswaController extends GetxController {
           notifikasi.where((n) => n['isRead'] == false).length;
     } catch (e) {
       print("Error loading notifikasi: $e");
+    }
+  }
+
+  void loadArticles() async {
+    try {
+      final String response = await rootBundle.loadString(
+        'assets/data/articles.json',
+      );
+      final List<dynamic> data = jsonDecode(response);
+      articles.value = data.cast<Map<String, dynamic>>();
+    } catch (e) {
+      print("Error loading articles: $e");
     }
   }
 
