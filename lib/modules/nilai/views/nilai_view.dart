@@ -19,7 +19,7 @@ class NilaiView extends GetView<NilaiController> {
           itemCount: controller.mapelList.length,
           separatorBuilder: (_, __) => const SizedBox(height: 12),
           itemBuilder: (context, index) {
-            final mapel = controller.mapelList[index] as Map<String, dynamic>;
+            final mapel = controller.mapelList[index];
             bool lulus = mapel["rata"]! >= mapel["kkm"];
 
             return AppCard(
