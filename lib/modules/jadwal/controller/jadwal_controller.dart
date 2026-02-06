@@ -12,10 +12,16 @@ class JadwalController extends GetxController {
   // Dummy Jadwal Mingguan
   var jadwalMingguan = <String, List<Map<String, dynamic>>>{}.obs;
 
+  // Calendar States
+  var focusedDay = DateTime.now().obs;
+  var selectedDay = DateTime.now().obs;
+
   @override
   void onInit() {
     super.onInit();
     loadJadwal();
+    // Set initial selected day to today
+    selectedDay.value = DateTime.now();
   }
 
   void loadJadwal() async {
@@ -53,12 +59,18 @@ class JadwalController extends GetxController {
 
   // Jadwal hari ini based on real day
   List<Map<String, dynamic>> get jadwalHariIni {
-    String hari = _getHariIni();
+    String hari = _getHariFromDate(DateTime.now());
     return jadwalMingguan[hari] ?? [];
   }
 
-  String _getHariIni() {
-    int weekday = DateTime.now().weekday;
+  // Get jadwal for the selected day in calendar
+  List<Map<String, dynamic>> getJadwalForDay(DateTime date) {
+    String hari = _getHariFromDate(date);
+    return jadwalMingguan[hari] ?? [];
+  }
+
+  String _getHariFromDate(DateTime date) {
+    int weekday = date.weekday;
     switch (weekday) {
       case 1:
         return "Senin";

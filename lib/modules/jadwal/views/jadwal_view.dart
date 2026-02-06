@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_sekolah_apps/modules/jadwal/controller/jadwal_controller.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../../../config/app_colors.dart';
 import '../../../core/widgets/empty_state.dart';
 import '../widgets/jadwal_item.dart';
@@ -30,7 +31,7 @@ class JadwalView extends GetView<JadwalController> {
             unselectedLabelColor: Colors.white70,
             tabs: [
               Tab(text: "Hari Ini"),
-              Tab(text: "Per Hari"),
+              Tab(text: "Kalender"),
               Tab(text: "Semua"),
             ],
           ),
@@ -41,8 +42,8 @@ class JadwalView extends GetView<JadwalController> {
             // HALAMAN 1 — Jadwal Hari Ini
             _buildJadwalHariIni(),
 
-            // HALAMAN 2 — Jadwal Per Hari (Mingguan)
-            _buildJadwalMingguan(),
+            // HALAMAN 2 — Jadwal Kalender
+            _buildJadwalKalender(),
 
             // HALAMAN 3 — Jadwal Full Seminggu
             _buildJadwalFull(),
@@ -85,89 +86,132 @@ class JadwalView extends GetView<JadwalController> {
     });
   }
 
-  // --- WIDGET 2: JADWAL MINGGU INI ---
-  Widget _buildJadwalMingguan() {
+  // --- WIDGET 2: JADWAL KALENDER ---
+  Widget _buildJadwalKalender() {
     return Column(
       children: [
-        // Selector Hari
+        // Kalender Section
         Container(
-          height: 70, // Increased height for shadow
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: ListView.separated(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-            ), // Outer padding
-            scrollDirection: Axis.horizontal,
-            clipBehavior: Clip.none, // Allow shadow to flow out
-            itemCount: controller.hariList.length,
-            separatorBuilder:
-                (_, __) => const SizedBox(width: 12), // Cleaner separation
-            itemBuilder: (context, index) {
-              return Obx(() {
-                bool active = controller.selectedHariIndex.value == index;
-
-                return GestureDetector(
-                  onTap: () => controller.selectedHariIndex.value = index,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    width: 80, // Fixed width for uniform look
-                    decoration: BoxDecoration(
-                      color: active ? AppColors.primary : Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      border:
-                          active
-                              ? null
-                              : Border.all(color: Colors.grey.shade200),
-                      boxShadow:
-                          active
-                              ? [
-                                BoxShadow(
-                                  color: AppColors.primary.withOpacity(0.4),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ]
-                              : [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.05),
-                                  blurRadius: 4,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        controller.hariList[index],
-                        style: TextStyle(
-                          color: active ? Colors.white : AppColors.textMedium,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
+          margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Obx(
+            () => TableCalendar(
+              locale: 'id_ID',
+              firstDay: DateTime.utc(2020, 1, 1),
+              lastDay: DateTime.utc(2030, 12, 31),
+              focusedDay: controller.focusedDay.value,
+              currentDay: DateTime.now(),
+              calendarFormat:
+                  CalendarFormat
+                      .week, // Default to Week view for better space validation
+              availableCalendarFormats: const {
+                CalendarFormat.month: 'Bulanan',
+                CalendarFormat.twoWeeks: '2 Minggu',
+                CalendarFormat.week: 'Mingguan',
+              },
+              selectedDayPredicate: (day) {
+                return isSameDay(controller.selectedDay.value, day);
+              },
+              onDaySelected: (selectedDay, focusedDay) {
+                controller.selectedDay.value = selectedDay;
+                controller.focusedDay.value = focusedDay;
+              },
+              onPageChanged: (focusedDay) {
+                controller.focusedDay.value = focusedDay;
+              },
+              eventLoader: (day) {
+                return controller.getJadwalForDay(day);
+              },
+              calendarStyle: CalendarStyle(
+                outsideDaysVisible: false,
+                weekendTextStyle: const TextStyle(color: Colors.red),
+                holidayTextStyle: const TextStyle(color: Colors.red),
+                selectedDecoration: const BoxDecoration(
+                  color: AppColors.primary,
+                  shape: BoxShape.circle,
+                ),
+                todayDecoration: BoxDecoration(
+                  color: AppColors.primary.withOpacity(0.3),
+                  shape: BoxShape.circle,
+                ),
+                markerDecoration: const BoxDecoration(
+                  color: AppColors.warning, // Or another accent color
+                  shape: BoxShape.circle,
+                ),
+              ),
+              headerStyle: const HeaderStyle(
+                formatButtonVisible: true,
+                titleCentered: true,
+                formatButtonTextStyle: TextStyle(
+                  fontSize: 12,
+                  color: AppColors.primary,
+                ),
+                formatButtonDecoration: BoxDecoration(
+                  border: Border.fromBorderSide(
+                    BorderSide(color: AppColors.primary),
                   ),
-                );
-              });
-            },
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+              ),
+            ),
           ),
         ),
 
-        // LIST JADWAL HARI TERPILIH
+        // Selected Date Header
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: Obx(() {
+            final date = controller.selectedDay.value;
+            // Simple date formatter manually or use intl if preferred, but for now specific format:
+            // Let's rely on basic string properties or controller logic if complex.
+            // Using a simple custom text for now to avoid intl dependency issues if not initialized
+            return Row(
+              children: [
+                const Icon(
+                  Icons.date_range_rounded,
+                  color: AppColors.primary,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  "Jadwal Tanggal ${date.day}/${date.month}/${date.year}",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textDark,
+                  ),
+                ),
+              ],
+            );
+          }),
+        ),
+
+        // List Jadwal
         Expanded(
           child: Obx(() {
-            final hari =
-                controller.hariList[controller.selectedHariIndex.value];
-            final list = controller.jadwalMingguan[hari] ?? [];
+            final list = controller.getJadwalForDay(
+              controller.selectedDay.value,
+            );
 
             if (list.isEmpty) {
               return const EmptyState(
                 title: "Tidak Ada Jadwal",
-                subtitle: "Belum ada jadwal untuk hari ini.",
+                subtitle: "Tidak ada mata pelajaran pada tanggal ini.",
               );
             }
 
             return ListView.builder(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               itemCount: list.length,
               itemBuilder: (context, index) {
                 final item = list[index];
