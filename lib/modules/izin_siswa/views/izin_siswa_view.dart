@@ -381,14 +381,9 @@ class DashedRectPainter extends CustomPainter {
     Path path = Path();
     path.moveTo(a.dx, a.dy);
     bool shouldDraw = true;
-    Offset currentPoint = a;
 
-    double radians = 0.0;
     if (size.width != 0) {
-      radians = size.width > 0 ? 0.0 : 3.14159;
-    } else {
-      radians = size.height > 0 ? 3.14159 / 2 : 3.14159 * 1.5;
-    }
+    } else {}
 
     // Simplification for rect:
     // Just drawing straight lines
