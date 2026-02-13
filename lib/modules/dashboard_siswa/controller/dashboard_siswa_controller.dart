@@ -15,6 +15,7 @@ class DashboardSiswaController extends GetxController {
   var articles = <Map<String, dynamic>>[].obs;
   var notifikasi = <Map<String, dynamic>>[].obs;
   var unreadNotifCount = 0.obs;
+  var totalPoints = 0.obs;
 
   @override
   void onInit() {
@@ -24,6 +25,26 @@ class DashboardSiswaController extends GetxController {
     loadPengumuman();
     loadArticles();
     loadNotifikasi();
+    loadPoints();
+  }
+
+  void loadPoints() async {
+    try {
+      final String response = await rootBundle.loadString(
+        'assets/data/poin_siswa.json',
+      );
+      final List<dynamic> data = jsonDecode(response);
+
+      int total = 0;
+      for (var item in data) {
+        total += (item['points'] as int);
+      }
+
+      // Initial base points + history sum
+      totalPoints.value = total;
+    } catch (e) {
+      print("Error loading points: $e");
+    }
   }
 
   void loadJadwal() async {

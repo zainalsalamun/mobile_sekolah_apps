@@ -230,32 +230,41 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
           ),
 
           // Points / Badge
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: const Row(
-              children: [
-                Icon(Icons.stars_rounded, color: AppColors.primary, size: 18),
-                SizedBox(width: 4),
-                Text(
-                  "100",
-                  style: TextStyle(
-                    color: AppColors.primary, // Match gradient start
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+          GestureDetector(
+            onTap: () => Get.toNamed(AppRoutes.point),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
                   ),
-                ),
-              ],
+                ],
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.stars_rounded,
+                    color: AppColors.primary,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 4),
+                  Obx(
+                    () => Text(
+                      "${controller.totalPoints.value}",
+                      style: const TextStyle(
+                        color: AppColors.primary, // Match gradient start
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
