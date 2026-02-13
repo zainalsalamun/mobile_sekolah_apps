@@ -31,6 +31,8 @@ import 'package:mobile_sekolah_apps/modules/artikel/views/artikel_view.dart';
 import 'package:mobile_sekolah_apps/modules/artikel/views/artikel_detail_view.dart';
 import 'package:mobile_sekolah_apps/modules/kelas_virtual/bindings/kelas_virtual_binding.dart';
 import 'package:mobile_sekolah_apps/modules/kelas_virtual/views/kelas_virtual_view.dart';
+import 'package:mobile_sekolah_apps/modules/histori/bindings/histori_binding.dart';
+import 'package:mobile_sekolah_apps/modules/histori/views/histori_view.dart';
 
 class AppPages {
   static final pages = [
@@ -113,6 +115,11 @@ class AppPages {
       name: AppRoutes.kelasVirtual,
       page: () => const KelasVirtualView(),
       binding: KelasVirtualBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.histori,
+      page: () => const HistoriView(),
+      binding: HistoriBinding(),
     ),
   ];
 }

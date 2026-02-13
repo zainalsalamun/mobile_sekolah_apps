@@ -18,4 +18,5 @@ abstract class AppRoutes {
   static const artikel = '/artikel';
   static const artikelDetail = '/artikel-detail';
   static const kelasVirtual = '/kelas-virtual';
+  static const histori = '/histori';
 }

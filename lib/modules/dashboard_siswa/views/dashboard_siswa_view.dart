@@ -306,7 +306,7 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
         "title": "Histori",
         "icon": Icons.calendar_today_rounded,
         "color": const Color(0xFF636E72),
-        "route": null,
+        "route": AppRoutes.histori,
       },
       {
         "title": "Pesan",
