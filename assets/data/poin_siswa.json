@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "activity": "Hadir Tepat Waktu",
+        "date": "13 Feb 2026",
+        "points": 10,
+        "type": "plus"
+    },
+    {
+        "id": 2,
+        "activity": "Mengerjakan Tugas Matematika",
+        "date": "12 Feb 2026",
+        "points": 20,
+        "type": "plus"
+    },
+    {
+        "id": 3,
+        "activity": "Aktif di Kelas",
+        "date": "10 Feb 2026",
+        "points": 5,
+        "type": "plus"
+    },
+    {
+        "id": 4,
+        "activity": "Juara 2 Lomba Puisi",
+        "date": "08 Feb 2026",
+        "points": 50,
+        "type": "plus"
+    },
+    {
+        "id": 5,
+        "activity": "Terlambat Masuk Kelas",
+        "date": "05 Feb 2026",
+        "points": -5,
+        "type": "minus"
+    },
+    {
+        "id": 6,
+        "activity": "Tidak Membawa Buku Paket",
+        "date": "01 Feb 2026",
+        "points": -10,
+        "type": "minus"
+    }
+]
