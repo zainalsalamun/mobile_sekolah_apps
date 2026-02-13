@@ -324,7 +324,7 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
         "title": "Tugasku",
         "icon": Icons.assignment_outlined,
         "color": const Color(0xFFA29BFE),
-        "route": null,
+        "route": AppRoutes.tugasku,
       },
       {
         "title": "Kelas Virtual",
