@@ -21,4 +21,5 @@ abstract class AppRoutes {
   static const histori = '/histori';
   static const tugasku = '/tugasku';
   static const tugaskuDetail = '/tugasku-detail';
+  static const point = '/point';
 }

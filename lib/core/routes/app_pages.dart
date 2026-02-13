@@ -36,6 +36,8 @@ import 'package:mobile_sekolah_apps/modules/histori/views/histori_view.dart';
 import 'package:mobile_sekolah_apps/modules/tugasku/bindings/tugasku_binding.dart';
 import 'package:mobile_sekolah_apps/modules/tugasku/views/tugasku_view.dart';
 import 'package:mobile_sekolah_apps/modules/tugasku/views/tugasku_detail_view.dart';
+import 'package:mobile_sekolah_apps/modules/point/bindings/point_binding.dart';
+import 'package:mobile_sekolah_apps/modules/point/views/point_view.dart';
 
 class AppPages {
   static final pages = [
@@ -132,6 +134,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.tugaskuDetail,
       page: () => const TugaskuDetailView(),
+    ),
+    GetPage(
+      name: AppRoutes.point,
+      page: () => const PointView(),
+      binding: PointBinding(),
     ),
   ];
 }
