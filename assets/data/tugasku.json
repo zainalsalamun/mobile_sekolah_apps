@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "title": "Tugas Matematika - Aljabar",
+        "deadline": "15 Feb 2026",
+        "status": "Belum Dikerjakan",
+        "description": "Kerjakan soal halaman 45-47 buku paket matematika. Kumpulkan dalam format PDF.",
+        "subject": "Matematika",
+        "teacher": "Budi Santoso, S.Pd.",
+        "created_at": "10 Feb 2026"
+    },
+    {
+        "id": 2,
+        "title": "Tugas Bahasa Indonesia - Puisi",
+        "deadline": "16 Feb 2026",
+        "status": "Sedang Dikerjakan",
+        "description": "Buatlah puisi bertema lingkungan sekolah minimal 4 bait. Perhatikan rima dan diksi yang digunakan.",
+        "subject": "Bahasa Indonesia",
+        "teacher": "Siti Aminah, S.Pd.",
+        "created_at": "11 Feb 2026"
+    },
+    {
+        "id": 3,
+        "title": "Tugas IPA - Fotosintesis",
+        "deadline": "10 Feb 2026",
+        "status": "Selesai",
+        "description": "Jelaskan proses fotosintesis dan buat diagram alurnya. Sertakan gambar pendukung.",
+        "subject": "Ilmu Pengetahuan Alam",
+        "teacher": "Dr. Rina Wati",
+        "created_at": "05 Feb 2026"
+    },
+    {
+        "id": 4,
+        "title": "Tugas Sejarah - Perang Diponegoro",
+        "deadline": "20 Feb 2026",
+        "status": "Belum Dikerjakan",
+        "description": "Buat rangkuman tentang latar belakang dan dampak Perang Diponegoro.",
+        "subject": "Sejarah",
+        "teacher": "Agus Salim, S.Pd.",
+        "created_at": "12 Feb 2026"
+    },
+    {
+        "id": 5,
+        "title": "Tugas Seni Budaya - Lukisan Abstrak",
+        "deadline": "25 Feb 2026",
+        "status": "Belum Dikerjakan",
+        "description": "Buatlah sebuah lukisan abstrak dengan tema 'Kebebasan'. Gunakan media kanvas atau kertas gambar A3.",
+        "subject": "Seni Budaya",
+        "teacher": "Eko Prasetyo, S.Sn.",
+        "created_at": "13 Feb 2026"
+    }
+]
