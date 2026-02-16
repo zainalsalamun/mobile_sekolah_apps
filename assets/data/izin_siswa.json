@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "tanggal": "28 Jan 2026",
+        "tipe": "Sakit",
+        "keterangan": "Demam tinggi",
+        "status_persetujuan": "Disetujui",
+        "lampiran": "surat_dokter.jpg"
+    },
+    {
+        "id": 2,
+        "tanggal": "23 Jan 2026",
+        "tipe": "Izin",
+        "keterangan": "Acara Keluarga",
+        "status_persetujuan": "Disetujui",
+        "lampiran": null
+    },
+    {
+        "id": 3,
+        "tanggal": "13 Jan 2026",
+        "tipe": "Sakit",
+        "keterangan": "Flu berat",
+        "status_persetujuan": "Disetujui",
+        "lampiran": "surat_dokter_2.jpg"
+    },
+    {
+        "id": 4,
+        "tanggal": "17 Des 2025",
+        "tipe": "Izin",
+        "keterangan": "Sakit Gigi",
+        "status_persetujuan": "Disetujui",
+        "lampiran": null
+    }
+]
