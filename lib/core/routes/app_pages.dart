@@ -38,6 +38,9 @@ import 'package:mobile_sekolah_apps/modules/tugasku/views/tugasku_view.dart';
 import 'package:mobile_sekolah_apps/modules/tugasku/views/tugasku_detail_view.dart';
 import 'package:mobile_sekolah_apps/modules/point/bindings/point_binding.dart';
 import 'package:mobile_sekolah_apps/modules/point/views/point_view.dart';
+import 'package:mobile_sekolah_apps/modules/ebook/bindings/ebook_binding.dart';
+import 'package:mobile_sekolah_apps/modules/ebook/views/ebook_view.dart';
+import 'package:mobile_sekolah_apps/modules/ebook/views/ebook_detail_view.dart';
 
 class AppPages {
   static final pages = [
@@ -140,5 +143,11 @@ class AppPages {
       page: () => const PointView(),
       binding: PointBinding(),
     ),
+    GetPage(
+      name: AppRoutes.ebook,
+      page: () => const EBookView(),
+      binding: EBookBinding(),
+    ),
+    GetPage(name: AppRoutes.ebookDetail, page: () => const EBookDetailView()),
   ];
 }
