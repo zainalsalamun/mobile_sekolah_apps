@@ -22,7 +22,6 @@ import 'package:mobile_sekolah_apps/modules/nilai/views/nilai_detail_view.dart';
 import 'package:mobile_sekolah_apps/modules/nilai/views/nilai_view.dart';
 import 'package:mobile_sekolah_apps/modules/pengumuman/views/pengumuman_detail_view.dart';
 import 'package:mobile_sekolah_apps/modules/pengumuman/views/pengumuman_view.dart';
-
 import 'package:mobile_sekolah_apps/modules/splash/views/splash_view.dart';
 import 'package:mobile_sekolah_apps/modules/izin_siswa/bindings/izin_siswa_binding.dart';
 import 'package:mobile_sekolah_apps/modules/izin_siswa/views/izin_siswa_view.dart';
@@ -41,6 +40,7 @@ import 'package:mobile_sekolah_apps/modules/point/views/point_view.dart';
 import 'package:mobile_sekolah_apps/modules/ebook/bindings/ebook_binding.dart';
 import 'package:mobile_sekolah_apps/modules/ebook/views/ebook_view.dart';
 import 'package:mobile_sekolah_apps/modules/ebook/views/ebook_detail_view.dart';
+import 'package:mobile_sekolah_apps/modules/all_features/views/all_features_view.dart';
 
 class AppPages {
   static final pages = [
@@ -70,13 +70,11 @@ class AppPages {
       page: () => const AbsensiSiswaView(),
       binding: AbsensiBinding(),
     ),
-
     GetPage(
       name: AppRoutes.nilai,
       page: () => const NilaiView(),
       binding: NilaiBinding(),
     ),
-
     GetPage(
       name: AppRoutes.detailNilai,
       page: () => const NilaiDetailView(),
@@ -149,5 +147,6 @@ class AppPages {
       binding: EBookBinding(),
     ),
     GetPage(name: AppRoutes.ebookDetail, page: () => const EBookDetailView()),
+    GetPage(name: AppRoutes.allFeatures, page: () => const AllFeaturesView()),
   ];
 }
