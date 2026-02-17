@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "title": "Matematika Dasar",
+        "author": "Budi Santoso",
+        "cover_url": "https://cdn.gramedia.com/uploads/items/9786020332847_matematika-dasar-untuk-perguruan-tinggi.jpg",
+        "category": "Pelajaran",
+        "description": "Buku panduan matematika dasar untuk siswa sekolah menengah.",
+        "page_count": 120,
+        "rating": 4.5
+    },
+    {
+        "id": 2,
+        "title": "Sejarah Indonesia",
+        "author": "Sartono Kartodirdjo",
+        "cover_url": "https://cdn.gramedia.com/uploads/items/9786020387069_Sejarah-Indonesia-Modern-1200-2008.jpg",
+        "category": "Sejarah",
+        "description": "Sejarah lengkap perjalanan bangsa Indonesia dari masa kerajaan hingga modern.",
+        "page_count": 350,
+        "rating": 4.8
+    },
+    {
+        "id": 3,
+        "title": "Fisika Terapan",
+        "author": "Dr. Eng. Mikrajuddin Abdullah",
+        "cover_url": "https://cdn.gramedia.com/uploads/items/9786026232042_Fisika-Dasar-I.jpg",
+        "category": "Sains",
+        "description": "Konsep dasar fisika dan penerapannya dalam kehidupan sehari-hari.",
+        "page_count": 200,
+        "rating": 4.2
+    },
+    {
+        "id": 4,
+        "title": "Bahasa Indonesia",
+        "author": "Kementerian Pendidikan",
+        "cover_url": "https://cdn.gramedia.com/uploads/items/9786022419577_Buku-Siswa-Bahasa-Indonesia-SMP-MTs-Kelas-VII-Edisi-Revisi-2016.jpg",
+        "category": "Bahasa",
+        "description": "Buku teks Bahasa Indonesia kurikulum terbaru.",
+        "page_count": 150,
+        "rating": 4.0
+    },
+    {
+        "id": 5,
+        "title": "Biologi Modern",
+        "author": "Campbell",
+        "cover_url": "https://cdn.gramedia.com/uploads/items/9786024342323_Biologi-Campbell-Edisi-8-Jilid-1.jpg",
+        "category": "Sains",
+        "description": "Pembahasan mendalam tentang biologi sel, genetika, dan evolusi.",
+        "page_count": 500,
+        "rating": 4.9
+    },
+    {
+        "id": 6,
+        "title": "Pemrograman Dasar",
+        "author": "Abdul Kadir",
+        "cover_url": "https://cdn.gramedia.com/uploads/items/9789792904561_Dasar-Pemrograman-Web-Dinamis-Menggunakan-PHP.jpg",
+        "category": "Teknologi",
+        "description": "Pengenalan logika pemrograman untuk pemula.",
+        "page_count": 180,
+        "rating": 4.7
+    }
+]
