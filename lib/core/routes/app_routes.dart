@@ -24,4 +24,5 @@ abstract class AppRoutes {
   static const point = '/point';
   static const ebook = '/ebook';
   static const ebookDetail = '/ebook-detail';
+  static const allFeatures = '/all-features';
 }
