@@ -17,6 +17,12 @@ class DashboardSiswaController extends GetxController {
   var unreadNotifCount = 0.obs;
   var totalPoints = 0.obs;
 
+  var selectedIndex = 0.obs; // Tab index
+
+  void changeTabIndex(int index) {
+    selectedIndex.value = index;
+  }
+
   @override
   void onInit() {
     super.onInit();
