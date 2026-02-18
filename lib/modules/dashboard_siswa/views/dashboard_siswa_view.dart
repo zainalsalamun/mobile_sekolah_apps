@@ -4,6 +4,9 @@ import 'package:mobile_sekolah_apps/modules/dashboard_siswa/controller/dashboard
 import '../../../core/routes/app_routes.dart';
 import '../../../config/app_colors.dart';
 import '../../../config/app_menu.dart';
+import '../../all_features/views/all_features_view.dart';
+import '../../ebook/views/ebook_view.dart';
+import '../../profile/views/profile_view.dart';
 
 class DashboardSiswaView extends GetView<DashboardSiswaController> {
   const DashboardSiswaView({super.key});
@@ -12,92 +15,112 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6FA),
-      body: Stack(
-        children: [
-          // Background Gradient Header
-          Container(
-            height: 320,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [AppColors.primary, AppColors.primaryDark],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-              ),
-            ),
-          ),
-
-          SafeArea(
-            child: Column(
-              children: [
-                _buildTopBar(),
-                const SizedBox(height: 10),
-                _buildUserCard(),
-                const SizedBox(height: 24),
-
-                // Menu Grid Section
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16),
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
-                      ),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        SingleChildScrollView(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: _buildMenuGrid(),
-                              ),
-                              _buildMadingSection(),
-                              const SizedBox(height: 20),
-                              _buildPengumumanSection(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // Spacing for Bottom Bar if needed, but Expanded usually handles it.
-                // However, since we have a bottomNavigationBar in Scaffold, the body ends above it.
-                const SizedBox(height: 10),
-              ],
-            ),
-          ),
-
-          // Tooltip positioned relative to screen if layout allows,
-          // but seeing the design, the tooltip is basically a toast or a specialized widget underneath the button.
-          // Since the button is inside the white card now, let's put the tooltip outside or handle it differently.
-          // For now, I'll place the tooltip in the stack but make sure it's visible.
-          Positioned(
-            bottom: 20,
-            left: 40,
-            right: 40,
-            child: IgnorePointer(
-              // Just visual
-              child: Container(),
-            ),
-          ),
-        ],
+      body: Obx(
+        () => IndexedStack(
+          index: controller.selectedIndex.value,
+          children: [
+            _buildHomeContent(),
+            const Scaffold(
+              body: Center(child: Text("Fitur Pesan Segera Hadir")),
+            ), // Placeholder for Pesan
+            const AllFeaturesView(),
+            const EBookView(),
+            const ProfileView(),
+          ],
+        ),
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+  Widget _buildHomeContent() {
+    return Stack(
+      children: [
+        // Background Gradient Header
+        Container(
+          height: 320,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppColors.primary, AppColors.primaryDark],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+            ),
+          ),
+        ),
+
+        SafeArea(
+          child: Column(
+            children: [
+              _buildTopBar(),
+              const SizedBox(height: 10),
+              _buildUserCard(),
+              const SizedBox(height: 24),
+
+              // Menu Grid Section
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                  ),
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      SingleChildScrollView(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: _buildMenuGrid(),
+                            ),
+                            _buildMadingSection(),
+                            const SizedBox(height: 20),
+                            _buildPengumumanSection(),
+                            const SizedBox(
+                              height: 100,
+                            ), // More space for bottom sheet
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Spacing for Bottom Bar if needed, but Expanded usually handles it.
+              // However, since we have a bottomNavigationBar in Scaffold, the body ends above it.
+              const SizedBox(height: 10),
+            ],
+          ),
+        ),
+
+        // Tooltip positioned relative to screen if layout allows,
+        // but seeing the design, the tooltip is basically a toast or a specialized widget underneath the button.
+        // Since the button is inside the white card now, let's put the tooltip outside or handle it differently.
+        // For now, I'll place the tooltip in the stack but make sure it's visible.
+        Positioned(
+          bottom: 20,
+          left: 40,
+          right: 40,
+          child: IgnorePointer(
+            // Just visual
+            child: Container(),
+          ),
+        ),
+      ],
     );
   }
 
@@ -293,6 +316,22 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
         return GestureDetector(
           onTap: () {
             if (item["route"] != null) {
+              if (item["route"] == AppRoutes.allFeatures) {
+                // Navigate to All Features Tab
+                controller.changeTabIndex(2);
+                return;
+              }
+              if (item["route"] == AppRoutes.ebook) {
+                // Navigate to Ebook Tab
+                controller.changeTabIndex(3);
+                return;
+              }
+              if (item["route"] == AppRoutes.pesan) {
+                // Navigate to Pesan Tab
+                controller.changeTabIndex(1);
+                return;
+              }
+
               Get.toNamed(item["route"]);
             } else {
               Get.snackbar(
@@ -655,60 +694,80 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
   }
 
   Widget _buildBottomNavigationBar() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.15),
-            blurRadius: 10,
-            offset: const Offset(0, -5),
+    return Obx(
+      () => Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-        ],
-      ),
-      child: BottomNavigationBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 0,
-        selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.15),
+              blurRadius: 10,
+              offset: const Offset(0, -5),
+            ),
+          ],
         ),
-        unselectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 12,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Drawer Handle
+            Center(
+              child: Container(
+                margin: const EdgeInsets.only(top: 10, bottom: 5),
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            BottomNavigationBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              selectedItemColor: AppColors.primary,
+              unselectedItemColor: Colors.grey,
+              type: BottomNavigationBarType.fixed,
+              currentIndex: controller.selectedIndex.value,
+              selectedLabelStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+              unselectedLabelStyle: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+              ),
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_rounded),
+                  label: "Beranda",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.chat_bubble_outline_rounded),
+                  label: "Pesan",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.grid_view_rounded),
+                  label: "Semua",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.book_outlined),
+                  label: "E-Book",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline_rounded),
+                  label: "Profil",
+                ),
+              ],
+              onTap: (index) {
+                controller.changeTabIndex(index);
+              },
+            ),
+          ],
         ),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: "Beranda",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline_rounded),
-            label: "Pesan",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grid_view_rounded),
-            label: "Semua",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book_outlined),
-            label: "E-Book",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline_rounded),
-            label: "Profil",
-          ),
-        ],
-        onTap: (index) {
-          // Navigation logic
-          if (index == 2) Get.toNamed(AppRoutes.allFeatures);
-          if (index == 3) Get.toNamed(AppRoutes.ebook);
-          if (index == 4) Get.toNamed(AppRoutes.profile);
-        },
       ),
     );
   }
