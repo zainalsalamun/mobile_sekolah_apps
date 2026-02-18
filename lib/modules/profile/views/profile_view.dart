@@ -9,8 +9,6 @@ class ProfileView extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfileController()); // Inject controller if not already
-
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
