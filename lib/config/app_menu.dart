@@ -49,7 +49,7 @@ class AppMenu {
       "title": "Pesan",
       "icon": Icons.chat_bubble_outline_rounded,
       "color": const Color(0xFF00CEC9),
-      "route": null,
+      "route": AppRoutes.pesan,
     },
     {
       "title": "Pulsa & Data",
