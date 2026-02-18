@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_sekolah_apps/config/app_colors.dart';
 import 'package:mobile_sekolah_apps/config/app_menu.dart';
+import '../../dashboard_siswa/controller/dashboard_siswa_controller.dart';
+import '../../../core/routes/app_routes.dart';
 
 class AllFeaturesView extends StatelessWidget {
   const AllFeaturesView({super.key});
@@ -68,6 +70,26 @@ class AllFeaturesView extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             if (item["route"] != null) {
+              if (item["route"] == AppRoutes.ebook) {
+                try {
+                  final dashboardController =
+                      Get.find<DashboardSiswaController>();
+                  dashboardController.changeTabIndex(3);
+                  return;
+                } catch (e) {
+                  // Fallback if controller not found
+                }
+              }
+              if (item["route"] == AppRoutes.profile) {
+                try {
+                  final dashboardController =
+                      Get.find<DashboardSiswaController>();
+                  dashboardController.changeTabIndex(4);
+                  return;
+                } catch (e) {
+                  // Fallback
+                }
+              }
               Get.toNamed(item["route"]);
             } else {
               Get.snackbar(
