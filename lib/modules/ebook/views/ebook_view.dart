@@ -21,19 +21,42 @@ class EBookView extends GetView<EBookController> {
           ),
           onPressed: () => Get.back(),
         ),
-        title: const Text(
-          "E-Library",
-          style: TextStyle(
-            color: AppColors.textDark,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
+        title: Obx(
+          () =>
+              controller.isSearching.value
+                  ? TextField(
+                    autofocus: true,
+                    style: const TextStyle(color: AppColors.textDark),
+                    decoration: const InputDecoration(
+                      hintText: "Cari judul, penulis...",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: InputBorder.none,
+                    ),
+                    onChanged: (value) => controller.updateSearch(value),
+                  )
+                  : const Text(
+                    "E-Library",
+                    style: TextStyle(
+                      color: AppColors.textDark,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search_rounded, color: AppColors.textDark),
-            onPressed: () {},
+          Obx(
+            () => IconButton(
+              icon: Icon(
+                controller.isSearching.value
+                    ? Icons.close_rounded
+                    : Icons.search_rounded,
+                color: AppColors.textDark,
+              ),
+              onPressed: () {
+                controller.toggleSearch();
+              },
+            ),
           ),
         ],
       ),
@@ -42,6 +65,7 @@ class EBookView extends GetView<EBookController> {
           return const Center(child: CircularProgressIndicator());
         }
 
+        // Show "No Books" if original list is empty
         if (controller.ebooks.isEmpty) {
           return Center(
             child: Column(
@@ -62,6 +86,27 @@ class EBookView extends GetView<EBookController> {
           );
         }
 
+        // Show "Not Found" if filtered list is empty
+        if (controller.filteredEbooks.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.search_off_rounded,
+                  size: 64,
+                  color: Colors.grey.shade300,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  "Buku tidak ditemukan",
+                  style: TextStyle(color: Colors.grey.shade500),
+                ),
+              ],
+            ),
+          );
+        }
+
         return GridView.builder(
           padding: const EdgeInsets.all(16),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -70,9 +115,9 @@ class EBookView extends GetView<EBookController> {
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
           ),
-          itemCount: controller.ebooks.length,
+          itemCount: controller.filteredEbooks.length,
           itemBuilder: (context, index) {
-            final book = controller.ebooks[index];
+            final book = controller.filteredEbooks[index];
             return _buildBookCard(book);
           },
         );
