@@ -34,4 +34,34 @@ class EBookController extends GetxController {
       print("Error loading ebooks: $e");
     }
   }
+
+  // Search Logic
+  var searchQuery = ''.obs;
+  var isSearching = false.obs;
+
+  List<Map<String, dynamic>> get filteredEbooks {
+    if (searchQuery.value.isEmpty) {
+      return ebooks;
+    }
+    return ebooks.where((book) {
+      final title = (book['title'] ?? '').toString().toLowerCase();
+      final author = (book['author'] ?? '').toString().toLowerCase();
+      final category = (book['category'] ?? '').toString().toLowerCase();
+      final query = searchQuery.value.toLowerCase();
+      return title.contains(query) ||
+          author.contains(query) ||
+          category.contains(query);
+    }).toList();
+  }
+
+  void toggleSearch() {
+    isSearching.value = !isSearching.value;
+    if (!isSearching.value) {
+      searchQuery.value = '';
+    }
+  }
+
+  void updateSearch(String query) {
+    searchQuery.value = query;
+  }
 }
