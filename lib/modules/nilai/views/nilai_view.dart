@@ -9,22 +9,26 @@ class NilaiView extends GetView<NilaiController> {
   const NilaiView({super.key});
 
   double get totalRataRata {
-    if (controller.mapelList.isEmpty) return 0;
-    final total = controller.mapelList.fold<double>(
+    if (controller.filteredMapelList.isEmpty) return 0;
+    final total = controller.filteredMapelList.fold<double>(
       0,
-      (sum, item) => sum + item["rata"],
+      (sum, item) => sum + (item["rata"] as num).toDouble(),
     );
-    return total / controller.mapelList.length;
+    return total / controller.filteredMapelList.length;
   }
 
   int get jumlahLulus {
-    return controller.mapelList
-        .where((item) => item["rata"] >= item["kkm"])
+    return controller.filteredMapelList
+        .where(
+          (item) =>
+              (item["rata"] as num).toDouble() >=
+              (item["kkm"] as num).toDouble(),
+        )
         .length;
   }
 
   int get jumlahTidakLulus {
-    return controller.mapelList.length - jumlahLulus;
+    return controller.filteredMapelList.length - jumlahLulus;
   }
 
   Color getGradeColor(double nilai, double kkm) {
@@ -34,9 +38,9 @@ class NilaiView extends GetView<NilaiController> {
   }
 
   IconData getGradeIcon(double nilai, double kkm) {
-    if (nilai >= kkm + 10) return Icons.sentiment_very_satisfied;
-    if (nilai >= kkm) return Icons.sentiment_satisfied;
-    return Icons.sentiment_dissatisfied;
+    if (nilai >= kkm + 10) return Icons.grade;
+    if (nilai >= kkm) return Icons.star_half;
+    return Icons.error_outline;
   }
 
   @override
@@ -54,7 +58,7 @@ class NilaiView extends GetView<NilaiController> {
         foregroundColor: AppColors.textDark,
       ),
       body: Obx(() {
-        if (controller.mapelList.isEmpty) {
+        if (controller.fullMapelList.isEmpty) {
           return const Center(child: CircularProgressIndicator());
         }
 
@@ -146,7 +150,7 @@ class NilaiView extends GetView<NilaiController> {
                           child: Column(
                             children: [
                               Text(
-                                "${controller.mapelList.length}",
+                                "${controller.filteredMapelList.length}",
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,
@@ -184,13 +188,45 @@ class NilaiView extends GetView<NilaiController> {
                         color: AppColors.textDark,
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Filter Semester",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: AppColors.primary,
+                    Obx(
+                      () => Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            value: controller.selectedSemester.value,
+                            isDense: true,
+                            icon: const Icon(
+                              Icons.arrow_drop_down,
+                              color: AppColors.primary,
+                              size: 18,
+                            ),
+                            items:
+                                controller.semesterList.map((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        color: AppColors.textDark,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                            onChanged: (String? newValue) {
+                              if (newValue != null) {
+                                controller.changeSemester(newValue);
+                              }
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -203,10 +239,10 @@ class NilaiView extends GetView<NilaiController> {
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
               sliver: SliverList.separated(
-                itemCount: controller.mapelList.length,
+                itemCount: controller.filteredMapelList.length,
                 separatorBuilder: (_, __) => const SizedBox(height: 12),
                 itemBuilder: (context, index) {
-                  final mapel = controller.mapelList[index];
+                  final mapel = controller.filteredMapelList[index];
                   final nilaiRata = (mapel["rata"] as num).toDouble();
                   final kkm = (mapel["kkm"] as num).toDouble();
 
