@@ -53,11 +53,107 @@ class LoginView extends GetView<LoginController> {
               hint: "Masukkan password",
             ),
 
+            const SizedBox(height: 20),
+
+            // Pilih Role Login
+            Row(
+              children: [
+                Expanded(
+                  child: Obx(
+                    () => InkWell(
+                      onTap: () => controller.selectedRole.value = "siswa",
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color:
+                                controller.selectedRole.value == "siswa"
+                                    ? AppColors.primary
+                                    : AppColors.border,
+                            width: 2,
+                          ),
+                          color:
+                              controller.selectedRole.value == "siswa"
+                                  ? AppColors.primary.withOpacity(0.08)
+                                  : Colors.transparent,
+                        ),
+                        child: Column(
+                          children: const [
+                            Icon(
+                              Icons.person_outline,
+                              size: 28,
+                              color: AppColors.primary,
+                            ),
+                            SizedBox(height: 6),
+                            Text(
+                              "Siswa",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: AppColors.textDark,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Obx(
+                    () => InkWell(
+                      onTap: () => controller.selectedRole.value = "guru",
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color:
+                                controller.selectedRole.value == "guru"
+                                    ? AppColors.primary
+                                    : AppColors.border,
+                            width: 2,
+                          ),
+                          color:
+                              controller.selectedRole.value == "guru"
+                                  ? AppColors.primary.withOpacity(0.08)
+                                  : Colors.transparent,
+                        ),
+                        child: Column(
+                          children: const [
+                            Icon(
+                              Icons.supervisor_account_outlined,
+                              size: 28,
+                              color: AppColors.primary,
+                            ),
+                            SizedBox(height: 6),
+                            Text(
+                              "Guru",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: AppColors.textDark,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
             const SizedBox(height: 30),
 
             Obx(
               () => AppButton(
-                text: "Login",
+                text:
+                    "Login sebagai ${controller.selectedRole.value.capitalizeFirst}",
                 isLoading: controller.isLoading.value,
                 onPressed: () {
                   if (emailC.text.isEmpty || passC.text.isEmpty) {

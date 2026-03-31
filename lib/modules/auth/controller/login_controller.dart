@@ -9,6 +9,8 @@ class LoginController extends GetxController {
   var emailController = "".obs;
   var passwordController = "".obs;
 
+  RxString selectedRole = "siswa".obs;
+
   Future<void> login(String username, String password) async {
     try {
       isLoading.value = true;
