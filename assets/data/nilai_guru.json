@@ -1,0 +1,69 @@
+[
+    {
+        "id": 1,
+        "nama_mapel": "Matematika Wajib",
+        "kelas": "10 IPA 1",
+        "guru_id": 1,
+        "kkm": 75,
+        "siswa": [
+            {
+                "id": 101,
+                "nis": "102023001",
+                "nama": "Ahmad Fauzi",
+                "tugas": 82,
+                "uts": 78,
+                "uas": 85,
+                "rata": 82,
+                "status": "LULUS"
+            },
+            {
+                "id": 102,
+                "nis": "102023002",
+                "nama": "Siti Nurhaliza",
+                "tugas": 90,
+                "uts": 88,
+                "uas": 92,
+                "rata": 90,
+                "status": "LULUS"
+            },
+            {
+                "id": 103,
+                "nis": "102023003",
+                "nama": "Rizky Ramadhan",
+                "tugas": 70,
+                "uts": 65,
+                "uas": 72,
+                "rata": 69,
+                "status": "REMEDIAL"
+            }
+        ],
+        "jumlah_siswa": 32,
+        "sudah_dinilai": 28,
+        "belum_dinilai": 4,
+        "rata_rata_kelas": 78.5
+    },
+    {
+        "id": 2,
+        "nama_mapel": "Matematika Wajib",
+        "kelas": "10 IPA 2",
+        "guru_id": 1,
+        "kkm": 75,
+        "siswa": [],
+        "jumlah_siswa": 30,
+        "sudah_dinilai": 15,
+        "belum_dinilai": 15,
+        "rata_rata_kelas": 76.2
+    },
+    {
+        "id": 3,
+        "nama_mapel": "Statistika",
+        "kelas": "12 IPS 1",
+        "guru_id": 1,
+        "kkm": 75,
+        "siswa": [],
+        "jumlah_siswa": 28,
+        "sudah_dinilai": 28,
+        "belum_dinilai": 0,
+        "rata_rata_kelas": 81.3
+    }
+]
