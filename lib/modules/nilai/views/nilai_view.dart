@@ -62,6 +62,36 @@ class NilaiView extends GetView<NilaiController> {
           return const Center(child: CircularProgressIndicator());
         }
 
+        if (controller.filteredMapelList.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.assignment_outlined,
+                  size: 80,
+                  color: Colors.grey[300],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  "Belum ada nilai",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  "Tidak ada data nilai untuk semester ini",
+                  style: TextStyle(fontSize: 14, color: Colors.grey[400]),
+                ),
+                const SizedBox(height: 24),
+              ],
+            ),
+          );
+        }
+
         return CustomScrollView(
           slivers: [
             /// ✅ Header Summary Statistik
