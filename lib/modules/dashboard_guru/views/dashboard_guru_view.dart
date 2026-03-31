@@ -191,9 +191,10 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  item["icon"] ?? "📘",
-                                  style: const TextStyle(fontSize: 22),
+                                Icon(
+                                  Icons.menu_book_outlined,
+                                  size: 26,
+                                  color: AppColors.primary,
                                 ),
                                 const SizedBox(width: 12),
                                 Column(
