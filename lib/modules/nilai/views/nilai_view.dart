@@ -43,6 +43,102 @@ class NilaiView extends GetView<NilaiController> {
     return Icons.error_outline;
   }
 
+  void _showFormAddNilai(BuildContext context) {
+    final namaMapelController = TextEditingController();
+    final nilaiController = TextEditingController();
+    final kkmController = TextEditingController(text: "75");
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder:
+          (context) => Container(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+              left: 16,
+              right: 16,
+              top: 20,
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Center(
+                  child: Text(
+                    "Tambah Nilai Baru",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                TextField(
+                  controller: namaMapelController,
+                  decoration: const InputDecoration(
+                    labelText: "Nama Mata Pelajaran",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: nilaiController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: "Nilai",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: kkmController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: "Nilai KKM",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      backgroundColor: AppColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (namaMapelController.text.isNotEmpty &&
+                          nilaiController.text.isNotEmpty) {
+                        controller.addNewNilai({
+                          "nama": namaMapelController.text,
+                          "rata": int.parse(nilaiController.text),
+                          "kkm": int.parse(kkmController.text),
+                          "semester": 1,
+                        });
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: const Text(
+                      "Simpan Nilai",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +152,22 @@ class NilaiView extends GetView<NilaiController> {
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: AppColors.textDark,
+        actions: [
+          Obx(
+            () =>
+                controller.showAddButton.value
+                    ? IconButton(
+                      icon: const Icon(
+                        Icons.add_circle_outline,
+                        color: AppColors.primary,
+                      ),
+                      onPressed: () {
+                        _showFormAddNilai(context);
+                      },
+                    )
+                    : const SizedBox(),
+          ),
+        ],
       ),
       body: Obx(() {
         if (controller.fullMapelList.isEmpty) {
