@@ -1,0 +1,72 @@
+{
+  "G001": {
+    "nama": "Budi Hartono, S.Pd",
+    "jadwalHariIni": [
+      {
+        "mapel": "Matematika",
+        "jam": "07:00",
+        "kelas": "10 IPA 1"
+      },
+      {
+        "mapel": "Matematika",
+        "jam": "09:00",
+        "kelas": "11 IPA 2"
+      },
+      {
+        "mapel": "Statistika",
+        "jam": "12:30",
+        "kelas": "12 IPS 1"
+      }
+    ],
+    "kelasUntukAbsensi": {
+      "mapel": "Matematika",
+      "kelas": "10 IPA 1",
+      "jam": "07:00"
+    },
+    "pengumuman": [
+      {
+        "judul": "Rapat Guru Besok",
+        "tanggal": "11 Nov 2025"
+      },
+      {
+        "judul": "Ulangan Semester",
+        "tanggal": "15 Nov 2025"
+      }
+    ]
+  },
+  "G002": {
+    "nama": "Siti Aminah, M.Pd",
+    "jadwalHariIni": [
+      {
+        "mapel": "Bahasa Indonesia",
+        "jam": "08:00",
+        "kelas": "10 IPA 1"
+      },
+      {
+        "mapel": "Bahasa Indonesia",
+        "jam": "10:00",
+        "kelas": "10 IPA 2"
+      },
+      {
+        "mapel": "Bahasa Indonesia",
+        "jam": "13:30",
+        "kelas": "11 IPA 1"
+      }
+    ],
+    "kelasUntukAbsensi": {
+      "mapel": "Bahasa Indonesia",
+      "kelas": "10 IPA 1",
+      "jam": "08:00"
+    },
+    "pengumuman": [
+      {
+        "judul": "Rapat Guru PAI",
+        "tanggal": "12 Nov 2025"
+      },
+      {
+        "judul": "Pengumpulan Nilai",
+        "tanggal": "20 Nov 2025"
+      }
+    ]
+  }
+}
