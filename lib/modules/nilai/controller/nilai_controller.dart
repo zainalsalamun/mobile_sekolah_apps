@@ -14,10 +14,22 @@ class NilaiController extends GetxController {
 
   RxString selectedSemester = "Semua Semester".obs;
 
+  // User role
+  RxBool isGuru = false.obs;
+  RxBool showAddButton = false.obs;
+
   @override
   void onInit() {
     super.onInit();
     loadNilai();
+    checkUserRole();
+  }
+
+  void checkUserRole() {
+    // Simulasi cek role user (nantinya ambil dari auth service)
+    // Untuk demo: jika role guru, tampilkan tombol tambah nilai
+    isGuru.value = true;
+    showAddButton.value = isGuru.value;
   }
 
   void loadNilai() async {
@@ -56,5 +68,20 @@ class NilaiController extends GetxController {
       (element) => element['nama'] == mapelName,
       orElse: () => {},
     );
+  }
+
+  void addNewNilai(Map<String, dynamic> nilaiBaru) {
+    fullMapelList.add(nilaiBaru);
+    filterNilai();
+  }
+
+  void updateNilai(int index, Map<String, dynamic> nilaiUpdate) {
+    fullMapelList[index] = nilaiUpdate;
+    filterNilai();
+  }
+
+  void deleteNilai(int index) {
+    fullMapelList.removeAt(index);
+    filterNilai();
   }
 }
