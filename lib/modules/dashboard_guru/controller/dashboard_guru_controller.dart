@@ -1,39 +1,73 @@
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
+import '../../../modules/auth/controller/login_controller.dart';
 
 class DashboardGuruController extends GetxController {
-  var nama = "Budi Hartono".obs;
-  var mapel = "Guru Matematika".obs;
+  final LoginController _loginController = Get.find<LoginController>();
 
-  var jadwalHariIni =
-      [
-        {
-          "mapel": "Matematika",
-          "jam": "07:00",
-          "kelas": "10 IPA 1",
-          "icon": "📘",
-        },
-        {
-          "mapel": "Matematika",
-          "jam": "09:00",
-          "kelas": "11 IPA 2",
-          "icon": "📘",
-        },
-        {
-          "mapel": "Statistika",
-          "jam": "12:30",
-          "kelas": "12 IPS 1",
-          "icon": "📊",
-        },
-      ].obs;
+  var nama = "".obs;
+  var mapel = "".obs;
+  var userGuru = <String, dynamic>{}.obs;
 
-  var kelasUntukAbsensi =
-      {"mapel": "Matematika", "kelas": "10 IPA 1", "jam": "07:00"}.obs;
+  var jadwalHariIni = <Map<String, dynamic>>[].obs;
+  var kelasUntukAbsensi = <String, dynamic>{}.obs;
+  var pengumuman = <Map<String, dynamic>>[].obs;
 
-  var pengumuman =
-      [
-        {"judul": "Rapat Guru Besok", "tanggal": "11 Nov 2025"},
-        {"judul": "Ulangan Semester", "tanggal": "15 Nov 2025"},
-      ].obs;
+  @override
+  void onInit() {
+    super.onInit();
+    loadDataGuru();
+  }
+
+  void loadDataGuru() async {
+    try {
+      // Load data user guru
+      final String userResponse = await rootBundle.loadString(
+        'assets/data/users.json',
+      );
+      final List<dynamic> users = jsonDecode(userResponse);
+
+      // Dapatkan guru berdasarkan username yang login
+      final loggedUser = Get.find<LoginController>().loggedUser.value;
+
+      final guru = users.firstWhere(
+        (user) => user['id'] == loggedUser['id'],
+        orElse:
+            () =>
+                users.firstWhere((u) => u['role'] == 'guru', orElse: () => {}),
+      );
+
+      if (guru.isNotEmpty) {
+        userGuru.value = guru;
+        nama.value = guru['name'];
+        mapel.value = guru['jabatan'];
+      }
+
+      // Load data dashboard guru
+      final String dashResponse = await rootBundle.loadString(
+        'assets/data/dashboard_guru.json',
+      );
+      final dashboardData = jsonDecode(dashResponse);
+
+      // Ambil data berdasarkan ID guru yang login
+      String guruId = userGuru.value['id'] ?? 'G001';
+
+      if (dashboardData.containsKey(guruId)) {
+        jadwalHariIni.value = List<Map<String, dynamic>>.from(
+          dashboardData[guruId]['jadwalHariIni'],
+        );
+        kelasUntukAbsensi.value = Map<String, dynamic>.from(
+          dashboardData[guruId]['kelasUntukAbsensi'],
+        );
+        pengumuman.value = List<Map<String, dynamic>>.from(
+          dashboardData[guruId]['pengumuman'],
+        );
+      }
+    } catch (e) {
+      print("Error load data guru: $e");
+    }
+  }
 
   void logout() {
     Get.offAllNamed('/login');
