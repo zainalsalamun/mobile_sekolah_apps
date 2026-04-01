@@ -111,57 +111,104 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
 
               const SizedBox(height: 22),
 
-              //kelas absensi
+              // Ringkasan Data Siswa
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: AppCard(
-                  padding: const EdgeInsets.all(18),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Kelas Perlu Absensi",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: AppCard(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            const Icon(
+                              Icons.people_alt_rounded,
+                              size: 32,
+                              color: AppColors.primary,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "${controller.totalSiswa.value}",
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primary,
+                              ),
+                            ),
+                            const Text(
+                              "Total Siswa",
+                              style: TextStyle(
+                                color: AppColors.textMedium,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 12),
-                      Text(
-                        "${controller.kelasUntukAbsensi['mapel']} - ${controller.kelasUntukAbsensi['kelas']}",
-                        style: const TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: AppCard(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            const Icon(
+                              Icons.grade_rounded,
+                              size: 32,
+                              color: Colors.green,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "${controller.nilaiSudahDiinput.value}",
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              ),
+                            ),
+                            const Text(
+                              "Nilai Terinput",
+                              style: TextStyle(
+                                color: AppColors.textMedium,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Text(
-                        controller.kelasUntukAbsensi['jam'] ?? "",
-                        style: const TextStyle(
-                          color: AppColors.textMedium,
-                          fontSize: 14,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: AppCard(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            const Icon(
+                              Icons.pending_actions_rounded,
+                              size: 32,
+                              color: Colors.orange,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              "${controller.tugasMenunggu.value}",
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.orange,
+                              ),
+                            ),
+                            const Text(
+                              "Tugas Pending",
+                              style: TextStyle(
+                                color: AppColors.textMedium,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 14),
-
-                      ElevatedButton(
-                        onPressed: () => Get.toNamed(AppRoutes.absensi),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
-                          ),
-                        ),
-                        child: const Text(
-                          "Input Absensi",
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
 
@@ -213,10 +260,10 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                           onTap: () => Get.toNamed(AppRoutes.kelasVirtual),
                         ),
                         _buildMenuItem(
-                          icon: Icons.how_to_reg_rounded,
-                          label: "Absensi",
-                          color: Colors.red,
-                          onTap: () => Get.toNamed(AppRoutes.absensi),
+                          icon: Icons.group_rounded,
+                          label: "Data Siswa",
+                          color: Colors.redAccent,
+                          onTap: () {},
                         ),
                         _buildMenuItem(
                           icon: Icons.article_rounded,
