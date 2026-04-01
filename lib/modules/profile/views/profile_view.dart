@@ -12,9 +12,12 @@ class ProfileView extends GetView<ProfileController> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text(
-          "Profil Siswa",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        title: Text(
+          controller.userRole.value == "guru" ? "Profil Guru" : "Profil Siswa",
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: AppColors.primary,
         elevation: 0,
@@ -80,7 +83,9 @@ class ProfileView extends GetView<ProfileController> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
-                        "${data['kelas']} • ${data['nis']}",
+                        controller.userRole.value == "guru"
+                            ? "${data['jabatan']} • NIP. ${data['nip']}"
+                            : "${data['kelas']} • ${data['nis']}",
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
@@ -98,56 +103,9 @@ class ProfileView extends GetView<ProfileController> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    _buildSectionTitle("Data Pribadi"),
-                    AppCard(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          _buildInfoRow("NISN", data['nisn']),
-                          _buildDivider(),
-                          _buildInfoRow(
-                            "Tempat, Tgl Lahir",
-                            "${data['tempat_lahir']}, ${data['tanggal_lahir']}",
-                          ),
-                          _buildDivider(),
-                          _buildInfoRow("Jenis Kelamin", data['jenis_kelamin']),
-                          _buildDivider(),
-                          _buildInfoRow("Agama", data['agama']),
-                          _buildDivider(),
-                          _buildInfoRow("Alamat", data['alamat']),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(height: 20),
-                    _buildSectionTitle("Kontak"),
-                    AppCard(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          _buildInfoRow("Email", data['email']),
-                          _buildDivider(),
-                          _buildInfoRow("No. HP", data['no_hp']),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(height: 20),
-                    _buildSectionTitle("Data Orang Tua / Wali"),
-                    AppCard(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          _buildInfoRow("Ayah", data['nama_ayah']),
-                          _buildDivider(),
-                          _buildInfoRow("Ibu", data['nama_ibu']),
-                          _buildDivider(),
-                          _buildInfoRow("No. HP Ortu", data['no_hp_orangtua']),
-                          _buildDivider(),
-                          _buildInfoRow("Wali Kelas", data['wali_kelas']),
-                        ],
-                      ),
-                    ),
+                    controller.userRole.value == "guru"
+                        ? _buildProfileGuru(data)
+                        : _buildProfileSiswa(data),
 
                     const SizedBox(height: 30),
                   ],
@@ -207,5 +165,131 @@ class ProfileView extends GetView<ProfileController> {
 
   Widget _buildDivider() {
     return Divider(color: Colors.grey.withOpacity(0.1), height: 16);
+  }
+
+  // Profile untuk Guru
+  Widget _buildProfileGuru(Map data) {
+    return Column(
+      children: [
+        _buildSectionTitle("Data Kepegawaian"),
+        AppCard(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              _buildInfoRow("NIP", data['nip']),
+              _buildDivider(),
+              _buildInfoRow("Jabatan", data['jabatan']),
+              _buildDivider(),
+              _buildInfoRow(
+                "Mata Pelajaran",
+                data['mata_pelajaran']?.join(', '),
+              ),
+              _buildDivider(),
+              _buildInfoRow(
+                "Kelas Yang Diampu",
+                data['kelas_ampu']?.join(', '),
+              ),
+              _buildDivider(),
+              _buildInfoRow("Golongan", data['golongan']),
+              _buildDivider(),
+              _buildInfoRow("Status Pegawai", data['status_kepegawaian']),
+              _buildDivider(),
+              _buildInfoRow("Tanggal Masuk", data['tanggal_masuk']),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 20),
+        _buildSectionTitle("Data Pribadi"),
+        AppCard(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              _buildInfoRow(
+                "Tempat, Tgl Lahir",
+                "${data['tempat_lahir']}, ${data['tanggal_lahir']}",
+              ),
+              _buildDivider(),
+              _buildInfoRow("Jenis Kelamin", data['jenis_kelamin']),
+              _buildDivider(),
+              _buildInfoRow("Pendidikan Terakhir", data['pendidikan_terakhir']),
+              _buildDivider(),
+              _buildInfoRow("Alamat", data['alamat']),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 20),
+        _buildSectionTitle("Kontak"),
+        AppCard(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              _buildInfoRow("Email", data['email']),
+              _buildDivider(),
+              _buildInfoRow("No. HP", data['no_hp']),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Profile untuk Siswa
+  Widget _buildProfileSiswa(Map data) {
+    return Column(
+      children: [
+        _buildSectionTitle("Data Pribadi"),
+        AppCard(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              _buildInfoRow("NISN", data['nisn']),
+              _buildDivider(),
+              _buildInfoRow(
+                "Tempat, Tgl Lahir",
+                "${data['tempat_lahir']}, ${data['tanggal_lahir']}",
+              ),
+              _buildDivider(),
+              _buildInfoRow("Jenis Kelamin", data['jenis_kelamin']),
+              _buildDivider(),
+              _buildInfoRow("Agama", data['agama']),
+              _buildDivider(),
+              _buildInfoRow("Alamat", data['alamat']),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 20),
+        _buildSectionTitle("Kontak"),
+        AppCard(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              _buildInfoRow("Email", data['email']),
+              _buildDivider(),
+              _buildInfoRow("No. HP", data['no_hp']),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 20),
+        _buildSectionTitle("Data Orang Tua / Wali"),
+        AppCard(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              _buildInfoRow("Ayah", data['nama_ayah']),
+              _buildDivider(),
+              _buildInfoRow("Ibu", data['nama_ibu']),
+              _buildDivider(),
+              _buildInfoRow("No. HP Ortu", data['no_hp_orangtua']),
+              _buildDivider(),
+              _buildInfoRow("Wali Kelas", data['wali_kelas']),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
