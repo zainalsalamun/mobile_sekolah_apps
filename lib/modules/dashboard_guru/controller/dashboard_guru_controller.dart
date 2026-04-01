@@ -14,6 +14,10 @@ class DashboardGuruController extends GetxController {
   var kelasUntukAbsensi = <String, dynamic>{}.obs;
   var pengumuman = <Map<String, dynamic>>[].obs;
 
+  var totalSiswa = 126.obs;
+  var nilaiSudahDiinput = 89.obs;
+  var tugasMenunggu = 17.obs;
+
   @override
   void onInit() {
     super.onInit();
