@@ -167,6 +167,83 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
 
               const SizedBox(height: 26),
 
+              // Menu Fitur Guru
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Menu Fitur",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      children: [
+                        _buildMenuItem(
+                          icon: Icons.grade_rounded,
+                          label: "Input Nilai",
+                          color: Colors.green,
+                          onTap: () => Get.toNamed(AppRoutes.nilai),
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.assignment_turned_in_rounded,
+                          label: "Tugas",
+                          color: Colors.orange,
+                          onTap: () => Get.toNamed(AppRoutes.tugasku),
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.schedule_rounded,
+                          label: "Jadwal",
+                          color: Colors.blue,
+                          onTap: () => Get.toNamed(AppRoutes.jadwal),
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.video_call_rounded,
+                          label: "Kelas Virtual",
+                          color: Colors.purple,
+                          onTap: () => Get.toNamed(AppRoutes.kelasVirtual),
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.how_to_reg_rounded,
+                          label: "Absensi",
+                          color: Colors.red,
+                          onTap: () => Get.toNamed(AppRoutes.absensi),
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.article_rounded,
+                          label: "Pengumuman",
+                          color: Colors.teal,
+                          onTap: () => Get.toNamed(AppRoutes.pengumuman),
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.person_rounded,
+                          label: "Profil",
+                          color: Colors.indigo,
+                          onTap: () => Get.toNamed(AppRoutes.profile),
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.more_horiz_rounded,
+                          label: "Lainnya",
+                          color: Colors.grey,
+                          onTap: () => Get.toNamed(AppRoutes.allFeatures),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 26),
+
               //jadwal
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -303,6 +380,40 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
           ),
         );
       }),
+    );
+  }
+
+  Widget _buildMenuItem({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.12),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, size: 26, color: color),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              height: 1.2,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
