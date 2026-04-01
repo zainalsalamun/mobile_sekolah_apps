@@ -10,6 +10,7 @@ class LoginController extends GetxController {
   var passwordController = "".obs;
 
   RxString selectedRole = "siswa".obs;
+  RxMap<String, dynamic> loggedUser = <String, dynamic>{}.obs;
 
   Future<void> login(String username, String password) async {
     try {
@@ -32,6 +33,8 @@ class LoginController extends GetxController {
 
       if (user != null) {
         // Login Success
+        loggedUser.value = Map<String, dynamic>.from(user);
+
         Get.snackbar(
           "Berhasil",
           "Selamat datang ${user['name']}",
