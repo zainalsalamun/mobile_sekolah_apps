@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import '../../../modules/auth/controller/login_controller.dart';
 
 class JadwalController extends GetxController {
+  final LoginController loginC = Get.find<LoginController>();
   // Hari dalam seminggu
   final hariList = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
@@ -37,7 +39,17 @@ class JadwalController extends GetxController {
         grouping[hari] = [];
       }
 
+      // Jika user adalah guru, hanya tampilkan jadwal yang dia ampu
+      final isGuru = loginC.loggedUser['role'] == 'guru';
+      final namaGuruLogin = loginC.loggedUser['name']?.toString() ?? "";
+
       for (var item in data) {
+        // Filter hanya jadwal guru yang login jika role adalah guru
+        if (isGuru) {
+          final namaGuruJadwal = item['guru']?.toString() ?? "";
+          if (namaGuruJadwal != namaGuruLogin) continue;
+        }
+
         String hari = item['hari'] ?? "Senin";
         if (grouping.containsKey(hari)) {
           grouping[hari]!.add({
