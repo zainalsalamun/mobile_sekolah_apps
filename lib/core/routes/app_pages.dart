@@ -26,6 +26,7 @@ import 'package:mobile_sekolah_apps/modules/pengumuman/views/pengumuman_view.dar
 import 'package:mobile_sekolah_apps/modules/splash/views/splash_view.dart';
 import 'package:mobile_sekolah_apps/modules/izin_siswa/bindings/izin_siswa_binding.dart';
 import 'package:mobile_sekolah_apps/modules/izin_siswa/views/izin_siswa_view.dart';
+import 'package:mobile_sekolah_apps/modules/izin_siswa/views/izin_persetujuan_view.dart';
 import 'package:mobile_sekolah_apps/modules/artikel/bindings/artikel_binding.dart';
 import 'package:mobile_sekolah_apps/modules/artikel/views/artikel_view.dart';
 import 'package:mobile_sekolah_apps/modules/artikel/views/artikel_detail_view.dart';
@@ -112,6 +113,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.izin,
       page: () => const IzinSiswaView(),
+      binding: IzinSiswaBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.persetujuanIzin,
+      page: () => IzinPersetujuanView(),
       binding: IzinSiswaBinding(),
     ),
     GetPage(
