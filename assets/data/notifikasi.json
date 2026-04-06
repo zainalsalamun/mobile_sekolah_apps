@@ -30,5 +30,37 @@
         "date": "2 hari yang lalu",
         "isRead": true,
         "type": "nilai"
+    },
+    {
+        "id": 5,
+        "title": "Permohonan Izin Baru",
+        "message": "Ahmad Rizqi (XII RPL 1) mengajukan izin sakit",
+        "date": "Hari ini, 10:15",
+        "isRead": false,
+        "type": "izin"
+    },
+    {
+        "id": 6,
+        "title": "5 Siswa Belum Absen",
+        "message": "Hari ini ada 5 siswa di kelas XII RPL 1 yang belum absen",
+        "date": "Hari ini, 08:00",
+        "isRead": false,
+        "type": "absensi"
+    },
+    {
+        "id": 7,
+        "title": "Tugas Harus Dinilai",
+        "message": "Ada 25 tugas siswa yang perlu Anda nilai minggu ini",
+        "date": "Kemarin",
+        "isRead": true,
+        "type": "tugas"
+    },
+    {
+        "id": 8,
+        "title": "Jadwal Mengajar Besok",
+        "message": "Anda memiliki 3 jam mengajar besok di kelas X TKJ 2",
+        "date": "Kemarin",
+        "isRead": true,
+        "type": "umum"
     }
 ]
