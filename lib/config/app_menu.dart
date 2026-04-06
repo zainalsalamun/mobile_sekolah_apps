@@ -87,9 +87,15 @@ class AppMenu {
       "route": AppRoutes.nilai,
     },
     {
-      "title": "Rekap Nilai",
+      "title": "Rekap Absensi",
       "icon": Icons.assessment_rounded,
       "color": const Color(0xFF27AE60),
+      "route": AppRoutes.absensiRekap,
+    },
+    {
+      "title": "Rekap Nilai",
+      "icon": Icons.analytics_rounded,
+      "color": const Color(0xFF00B894),
       "route": null,
     },
     {
