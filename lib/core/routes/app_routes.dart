@@ -27,4 +27,5 @@ abstract class AppRoutes {
   static const ebookDetail = '/ebook-detail';
   static const allFeatures = '/all-features';
   static const pesan = '/pesan';
+  static const persetujuanIzin = '/persetujuan-izin';
 }
