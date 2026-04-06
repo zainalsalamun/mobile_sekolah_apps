@@ -14,6 +14,7 @@ import 'package:mobile_sekolah_apps/core/bindings/pengumuman_binding.dart';
 import 'package:mobile_sekolah_apps/core/routes/app_routes.dart';
 import 'package:mobile_sekolah_apps/modules/absensi/views/absensi_siswa_view.dart';
 import 'package:mobile_sekolah_apps/modules/absensi/views/absensi_view.dart';
+import 'package:mobile_sekolah_apps/modules/absensi/views/absensi_rekap_view.dart';
 import 'package:mobile_sekolah_apps/modules/auth/views/login_view.dart';
 import 'package:mobile_sekolah_apps/modules/dashboard_guru/views/dashboard_guru_view.dart';
 import 'package:mobile_sekolah_apps/modules/dashboard_siswa/views/dashboard_siswa_view.dart';
@@ -68,6 +69,11 @@ class AppPages {
     GetPage(
       name: AppRoutes.absensiSiswa,
       page: () => const AbsensiSiswaView(),
+      binding: AbsensiBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.absensiRekap,
+      page: () => AbsensiRekapView(),
       binding: AbsensiBinding(),
     ),
     GetPage(
