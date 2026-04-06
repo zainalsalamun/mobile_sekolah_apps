@@ -75,6 +75,12 @@ class AppMenu {
       "route": AppRoutes.absensi,
     },
     {
+      "title": "Persetujuan Izin",
+      "icon": Icons.assignment_return_rounded,
+      "color": const Color(0xFF9B59B6),
+      "route": AppRoutes.persetujuanIzin,
+    },
+    {
       "title": "Jadwal Mengajar",
       "icon": Icons.event_note_rounded,
       "color": const Color(0xFFC0392B),
