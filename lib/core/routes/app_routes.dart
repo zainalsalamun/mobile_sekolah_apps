@@ -6,6 +6,7 @@ abstract class AppRoutes {
   static const dashboardGuru = '/dashboard-guru';
 
   static const absensi = '/absensi';
+  static const absensiRekap = '/absensi-rekap';
   static const absensiSiswa = '/absensi-siswa';
   static const nilai = '/nilai';
   static const detailNilai = '/detail-nilai';
