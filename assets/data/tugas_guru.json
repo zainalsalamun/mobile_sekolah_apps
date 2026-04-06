@@ -1,0 +1,54 @@
+[
+    {
+        "id": 1,
+        "title": "Tugas Matematika - Persamaan Kuadrat",
+        "kelas": "XII RPL 1",
+        "mapel": "Matematika",
+        "deadline": "10 April 2026",
+        "sudah_kumpul": 28,
+        "total_siswa": 36,
+        "status": "berjalan",
+        "desc": "Kerjakan soal halaman 45 nomor 1-10",
+        "siswa_kumpul": [
+            {"nama": "Ahmad Rizqi", "waktu_kumpul": "05 Apr 2026 13:20", "nilai": 85},
+            {"nama": "Siti Aminah", "waktu_kumpul": "05 Apr 2026 14:10", "nilai": 90},
+            {"nama": "Budi Santoso", "waktu_kumpul": "06 Apr 2026 08:30", "nilai": 78}
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Proyek Aplikasi Android Sederhana",
+        "kelas": "XII RPL 1",
+        "mapel": "Pemrograman Mobile",
+        "deadline": "15 April 2026",
+        "sudah_kumpul": 12,
+        "total_siswa": 36,
+        "status": "berjalan",
+        "desc": "Buat aplikasi counter dengan Flutter",
+        "siswa_kumpul": []
+    },
+    {
+        "id": 3,
+        "title": "Ulangan Harian Fisika",
+        "kelas": "XI TKJ 2",
+        "mapel": "Fisika",
+        "deadline": "03 April 2026",
+        "sudah_kumpul": 32,
+        "total_siswa": 32,
+        "status": "selesai",
+        "desc": "Ulangan tentang gaya dan gerak",
+        "siswa_kumpul": []
+    },
+    {
+        "id": 4,
+        "title": "Essay Sejarah Indonesia",
+        "kelas": "X MM 1",
+        "mapel": "Sejarah",
+        "deadline": "18 April 2026",
+        "sudah_kumpul": 5,
+        "total_siswa": 34,
+        "status": "berjalan",
+        "desc": "Tulis essay minimal 500 kata tentang proklamasi",
+        "siswa_kumpul": []
+    }
+]
