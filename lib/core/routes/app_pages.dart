@@ -44,6 +44,10 @@ import 'package:mobile_sekolah_apps/modules/ebook/bindings/ebook_binding.dart';
 import 'package:mobile_sekolah_apps/modules/ebook/views/ebook_view.dart';
 import 'package:mobile_sekolah_apps/modules/ebook/views/ebook_detail_view.dart';
 import 'package:mobile_sekolah_apps/modules/all_features/views/all_features_view.dart';
+import 'package:mobile_sekolah_apps/core/bindings/rekap_nilai_binding.dart';
+import 'package:mobile_sekolah_apps/modules/rekap_nilai/views/rekap_nilai_view.dart';
+import 'package:mobile_sekolah_apps/core/bindings/catatan_siswa_binding.dart';
+import 'package:mobile_sekolah_apps/modules/catatan_siswa/views/catatan_siswa_view.dart';
 
 class AppPages {
   static final pages = [
@@ -162,5 +166,15 @@ class AppPages {
     ),
     GetPage(name: AppRoutes.ebookDetail, page: () => const EBookDetailView()),
     GetPage(name: AppRoutes.allFeatures, page: () => const AllFeaturesView()),
+    GetPage(
+      name: AppRoutes.rekapNilai,
+      page: () => const RekapNilaiView(),
+      binding: RekapNilaiBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.catatanSiswa,
+      page: () => const CatatanSiswaView(),
+      binding: CatatanSiswaBinding(),
+    ),
   ];
 }
