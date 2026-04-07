@@ -29,4 +29,6 @@ abstract class AppRoutes {
   static const pesan = '/pesan';
   static const persetujuanIzin = '/persetujuan-izin';
   static const notifikasi = '/notifikasi';
+  static const rekapNilai = '/rekap-nilai';
+  static const catatanSiswa = '/catatan-siswa';
 }
