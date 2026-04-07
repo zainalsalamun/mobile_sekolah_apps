@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_sekolah_apps/modules/dashboard_guru/controller/dashboard_guru_controller.dart';
+import 'package:mobile_sekolah_apps/modules/notifikasi/controller/notifikasi_controller.dart';
 import '../../../core/routes/app_routes.dart';
 import '../../../config/app_colors.dart';
 import '../../../core/widgets/app_card.dart';
@@ -10,6 +11,8 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
 
   @override
   Widget build(BuildContext context) {
+    final NotifikasiController notifC = Get.put(NotifikasiController());
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Obx(() {
@@ -73,26 +76,42 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                     // Notification & Logout
                     Row(
                       children: [
-                        Stack(
-                          children: [
-                            const Icon(
-                              Icons.notifications_none_rounded,
-                              color: Colors.white,
-                              size: 28,
-                            ),
-                            Positioned(
-                              right: 0,
-                              top: 0,
-                              child: Container(
-                                width: 10,
-                                height: 10,
-                                decoration: const BoxDecoration(
-                                  color: Colors.red,
-                                  shape: BoxShape.circle,
-                                ),
+                        GestureDetector(
+                          onTap: () => Get.toNamed(AppRoutes.notifikasi),
+                          child: Stack(
+                            children: [
+                              const Icon(
+                                Icons.notifications_none_rounded,
+                                color: Colors.white,
+                                size: 28,
                               ),
-                            ),
-                          ],
+                              if (notifC.unreadCount.value > 0)
+                                Positioned(
+                                  right: 0,
+                                  top: 0,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(4),
+                                    constraints: const BoxConstraints(
+                                      minWidth: 18,
+                                      minHeight: 18,
+                                    ),
+                                    decoration: const BoxDecoration(
+                                      color: Colors.red,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Text(
+                                      notifC.unreadCount.value.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                         const SizedBox(width: 16),
                         GestureDetector(
@@ -357,6 +376,180 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
 
               const SizedBox(height: 26),
 
+              // Data Siswa Hari Ini
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          "Data Siswa Hari Ini",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Lihat Semua",
+                          style: TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.06),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          // Header Statistik
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Column(
+                                    children: const [
+                                      Text(
+                                        "28",
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Hadir",
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.orange.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Column(
+                                    children: const [
+                                      Text(
+                                        "1",
+                                        style: TextStyle(
+                                          color: Colors.orange,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Izin",
+                                        style: TextStyle(
+                                          color: Colors.orange,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Column(
+                                    children: const [
+                                      Text(
+                                        "1",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Alpa",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          const Divider(height: 1),
+                          const SizedBox(height: 12),
+
+                          // List Siswa Terbaru
+                          ...[
+                            _buildSiswaItem(
+                              "Ahmad Rizki",
+                              "XII RPL 1",
+                              "Hadir",
+                              "92",
+                            ),
+                            _buildSiswaItem(
+                              "Siti Nurhaliza",
+                              "XII RPL 1",
+                              "Hadir",
+                              "88",
+                            ),
+                            _buildSiswaItem(
+                              "Budi Santoso",
+                              "XII RPL 1",
+                              "Izin",
+                              "-",
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 26),
+
               //Pengumuman
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -427,6 +620,78 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
           ),
         );
       }),
+    );
+  }
+
+  Widget _buildSiswaItem(
+    String nama,
+    String kelas,
+    String status,
+    String nilai,
+  ) {
+    Color statusColor =
+        status == "Hadir"
+            ? Colors.green
+            : status == "Izin"
+            ? Colors.orange
+            : Colors.red;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        children: [
+          const CircleAvatar(
+            radius: 18,
+            backgroundColor: AppColors.primary,
+            child: Icon(Icons.person, size: 18, color: Colors.white),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  nama,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  kelas,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.textMedium,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            nilai,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: statusColor.withOpacity(0.12),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              status,
+              style: TextStyle(
+                color: statusColor,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
