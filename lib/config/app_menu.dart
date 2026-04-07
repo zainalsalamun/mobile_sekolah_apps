@@ -81,6 +81,12 @@ class AppMenu {
       "route": AppRoutes.persetujuanIzin,
     },
     {
+      "title": "Notifikasi",
+      "icon": Icons.notifications_rounded,
+      "color": const Color(0xFFE74C3C),
+      "route": AppRoutes.notifikasi,
+    },
+    {
       "title": "Jadwal Mengajar",
       "icon": Icons.event_note_rounded,
       "color": const Color(0xFFC0392B),
