@@ -28,4 +28,5 @@ abstract class AppRoutes {
   static const allFeatures = '/all-features';
   static const pesan = '/pesan';
   static const persetujuanIzin = '/persetujuan-izin';
+  static const notifikasi = '/notifikasi';
 }
