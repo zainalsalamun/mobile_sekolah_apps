@@ -48,6 +48,8 @@ import 'package:mobile_sekolah_apps/core/bindings/rekap_nilai_binding.dart';
 import 'package:mobile_sekolah_apps/modules/rekap_nilai/views/rekap_nilai_view.dart';
 import 'package:mobile_sekolah_apps/core/bindings/catatan_siswa_binding.dart';
 import 'package:mobile_sekolah_apps/modules/catatan_siswa/views/catatan_siswa_view.dart';
+import 'package:mobile_sekolah_apps/modules/data_siswa/views/data_siswa_view.dart';
+import 'package:mobile_sekolah_apps/core/bindings/data_siswa_binding.dart';
 
 class AppPages {
   static final pages = [
@@ -175,6 +177,11 @@ class AppPages {
       name: AppRoutes.catatanSiswa,
       page: () => const CatatanSiswaView(),
       binding: CatatanSiswaBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.dataSiswa,
+      page: () => const DataSiswaView(),
+      binding: DataSiswaBinding(),
     ),
   ];
 }
