@@ -278,11 +278,35 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                           color: Colors.purple,
                           onTap: () => Get.toNamed(AppRoutes.kelasVirtual),
                         ),
-                        _buildMenuItem(
-                          icon: Icons.group_rounded,
-                          label: "Data Siswa",
-                          color: Colors.redAccent,
-                          onTap: () {},
+                        GestureDetector(
+                          onTap: () => Get.toNamed(AppRoutes.dataSiswa),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: Colors.redAccent.withOpacity(0.12),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Icon(
+                                  Icons.group_rounded,
+                                  size: 26,
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                "Data Siswa",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.2,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         _buildMenuItem(
                           icon: Icons.article_rounded,
@@ -295,6 +319,18 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                           label: "Profil",
                           color: Colors.indigo,
                           onTap: () => Get.toNamed(AppRoutes.profile),
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.analytics_rounded,
+                          label: "Rekap Nilai",
+                          color: Colors.blueAccent,
+                          onTap: () => Get.toNamed(AppRoutes.rekapNilai),
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.note,
+                          label: "Catatan Siswa",
+                          color: Colors.amber,
+                          onTap: () => Get.toNamed(AppRoutes.catatanSiswa),
                         ),
                         _buildMenuItem(
                           icon: Icons.more_horiz_rounded,
