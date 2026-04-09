@@ -31,4 +31,5 @@ abstract class AppRoutes {
   static const notifikasi = '/notifikasi';
   static const rekapNilai = '/rekap-nilai';
   static const catatanSiswa = '/catatan-siswa';
+  static const dataSiswa = '/data-siswa';
 }
