@@ -1,24 +1,26 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/absensi_model.dart';
+import 'package:mobile_sekolah_apps/data/repositories/absensi_repository.dart';
 
 class AbsensiController extends GetxController {
-  // Dummy data siswa
-  var students =
-      [
-        {"nama": "Dewi", "nis": "2025001", "status": "Hadir"},
-        {"nama": "Rama", "nis": "2025002", "status": "Alpha"},
-        {"nama": "Lina", "nis": "2025003", "status": "Sakit"},
-      ].obs;
+  final AbsensiRepository _absensiRepository = AbsensiRepository();
 
-  // Update status absensi
+  // Student list for guru view
+  var students = <Map<String, dynamic>>[
+    {"nama": "Dewi", "nis": "2025001", "status": "Hadir"},
+    {"nama": "Rama", "nis": "2025002", "status": "Alpha"},
+    {"nama": "Lina", "nis": "2025003", "status": "Sakit"},
+  ].obs;
+
   void updateStatus(int index, String newStatus) {
     students[index]["status"] = newStatus;
     students.refresh();
   }
 
-  // Dummy history absensi siswa
-  var historyAbsensi = <Map<String, dynamic>>[].obs;
+  // History absensi from API
+  var historyAbsensi = <AbsensiModel>[].obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() {
@@ -28,13 +30,13 @@ class AbsensiController extends GetxController {
 
   void loadAbsensiData() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/absensi_siswa.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
-      historyAbsensi.value = data.cast<Map<String, dynamic>>();
+      isLoading.value = true;
+      final data = await _absensiRepository.getAbsensi();
+      historyAbsensi.value = data;
     } catch (e) {
-      print("Error loading absensi data: $e");
+      debugPrint("Error loading absensi data: $e");
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -42,60 +44,73 @@ class AbsensiController extends GetxController {
   var clockInTime = "--:--".obs;
   var clockOutTime = "--:--".obs;
   var isClockedIn = false.obs;
-  var todayStatus = "Belum Absen".obs; // Belum Absen, Masuk, Pulang
+  var todayStatus = "Belum Absen".obs;
 
   void performClockIn() {
-    // Simulate API call or logic
     clockInTime.value = _getCurrentTime();
     isClockedIn.value = true;
     todayStatus.value = "Masuk";
 
-    // Add to history (mock)
-    historyAbsensi.insert(0, {
-      "tanggal": "13 Nov 2025", // Dummy 'today'
-      "status": "Hadir",
-      "masuk": clockInTime.value,
-      "pulang": "-",
-    });
+    // Add to history
+    historyAbsensi.insert(
+      0,
+      AbsensiModel(
+        tanggal: _getTodayFormatted(),
+        status: "Hadir",
+        masuk: clockInTime.value,
+        pulang: "-",
+      ),
+    );
   }
 
   void performClockOut() {
     clockOutTime.value = _getCurrentTime();
-    isClockedIn.value = false; // Reset toggle but keep status
+    isClockedIn.value = false;
     todayStatus.value = "Pulang";
 
-    // Update history (mock)
     if (historyAbsensi.isNotEmpty) {
+      // Since AbsensiModel is immutable, create a new one
       var today = historyAbsensi[0];
-      today["pulang"] = clockOutTime.value;
-      historyAbsensi[0] = today; // Trigger refresh
+      historyAbsensi[0] = AbsensiModel(
+        tanggal: today.tanggal,
+        status: today.status,
+        masuk: today.masuk,
+        pulang: clockOutTime.value,
+        note: today.note,
+      );
     }
   }
 
   void performSakit() {
     todayStatus.value = "Sakit";
-    historyAbsensi.insert(0, {
-      "tanggal": "13 Nov 2025",
-      "status": "Sakit",
-      "masuk": "-",
-      "pulang": "-",
-    });
+    historyAbsensi.insert(
+      0,
+      AbsensiModel(
+        tanggal: _getTodayFormatted(),
+        status: "Sakit",
+        masuk: "-",
+        pulang: "-",
+      ),
+    );
   }
 
   void performIzin(String type, String note) {
     todayStatus.value = type;
-    historyAbsensi.insert(0, {
-      "tanggal": "13 Nov 2025",
-      "status": type,
-      "masuk": "-",
-      "pulang": "-",
-      "note": note,
-    });
+    historyAbsensi.insert(
+      0,
+      AbsensiModel(
+        tanggal: _getTodayFormatted(),
+        status: type,
+        masuk: "-",
+        pulang: "-",
+        note: note,
+      ),
+    );
   }
 
   // --- Calendar Logic ---
   var focusedDate = DateTime.now().obs;
-  var selectedDate = DateTime.now().obs; // For showing details below calendar
+  var selectedDate = DateTime.now().obs;
 
   void changeMonth(int offset) {
     focusedDate.value = DateTime(
@@ -108,20 +123,18 @@ class AbsensiController extends GetxController {
     selectedDate.value = date;
   }
 
-  // Convert history list to Map<String, dynamic> keyed by "yyyy-MM-dd" for easy lookup
-  Map<String, Map<String, dynamic>> get eventsByDate {
-    Map<String, Map<String, dynamic>> events = {};
+  // Convert history to map keyed by "yyyy-MM-dd"
+  Map<String, AbsensiModel> get eventsByDate {
+    Map<String, AbsensiModel> events = {};
     for (var item in historyAbsensi) {
-      if (item['tanggal'] != null) {
-        try {
-          DateTime? date = _parseDate(item['tanggal']);
-          if (date != null) {
-            String key = "${date.year}-${date.month}-${date.day}";
-            events[key] = item;
-          }
-        } catch (e) {
-          print("Error parsing date: $e");
+      try {
+        DateTime? date = _parseDate(item.tanggal);
+        if (date != null) {
+          String key = "${date.year}-${date.month}-${date.day}";
+          events[key] = item;
         }
+      } catch (e) {
+        debugPrint("Error parsing date: $e");
       }
     }
     return events;
@@ -129,7 +142,6 @@ class AbsensiController extends GetxController {
 
   DateTime? _parseDate(String? dateStr) {
     if (dateStr == null) return null;
-    // Format "12 Nov 2025"
     try {
       var parts = dateStr.split(" ");
       if (parts.length != 3) return null;
@@ -144,45 +156,31 @@ class AbsensiController extends GetxController {
 
   int _getMonthIndex(String monthStr) {
     const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "Mei",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Okt",
-      "Nov",
-      "Des",
+      "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+      "Jul", "Aug", "Sep", "Okt", "Nov", "Des",
     ];
-    // Handle English/Indonesian variations if needed, currently assuming exact match or similar
-    // Simple lookup
+    const monthsEng = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    ];
     int index = months.indexOf(monthStr);
     if (index == -1) {
-      // Try English fallback
-      const monthsEng = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
       index = monthsEng.indexOf(monthStr);
     }
-    return index + 1; // 1-12
+    return index + 1;
   }
 
   String _getCurrentTime() {
     final now = DateTime.now();
     return "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
+  }
+
+  String _getTodayFormatted() {
+    final now = DateTime.now();
+    const months = [
+      "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+      "Jul", "Agu", "Sep", "Okt", "Nov", "Des",
+    ];
+    return "${now.day} ${months[now.month - 1]} ${now.year}";
   }
 }
