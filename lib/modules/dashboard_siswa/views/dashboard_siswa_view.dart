@@ -458,8 +458,8 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
                     children: [
                       // Network Image
                       Positioned.fill(
-                        child: Image.network(
-                          article['image'] ?? "",
+                          child: Image.network(
+                            article.image,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return const SizedBox(); // Show gradient behind
@@ -523,7 +523,7 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  article['title'] ?? "No Title",
+                                  article.title,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
@@ -646,7 +646,7 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              item['judul'] ?? 'No Title',
+                              item.judul,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
@@ -657,7 +657,7 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              item['isi'] ?? '',
+                              item.isi,
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey.shade600,
@@ -667,7 +667,7 @@ class DashboardSiswaView extends GetView<DashboardSiswaController> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              item['tanggal'] ?? '',
+                              item.tanggal,
                               style: TextStyle(
                                 fontSize: 10,
                                 color: Colors.grey.shade400,
