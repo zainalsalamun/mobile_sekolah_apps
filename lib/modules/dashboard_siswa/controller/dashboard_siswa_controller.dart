@@ -1,23 +1,30 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/jadwal_model.dart';
+import 'package:mobile_sekolah_apps/data/models/pengumuman_model.dart';
+import 'package:mobile_sekolah_apps/data/models/article_model.dart';
+import 'package:mobile_sekolah_apps/data/models/notifikasi_model.dart';
+import 'package:mobile_sekolah_apps/data/repositories/dashboard_repository.dart';
+import 'package:mobile_sekolah_apps/data/repositories/auth_repository.dart';
 
 class DashboardSiswaController extends GetxController {
-  var nama = "Zainal Salamun".obs;
-  var kelas = "10 IPA 1".obs;
+  final DashboardRepository _dashboardRepository = DashboardRepository();
+  final AuthRepository _authRepository = AuthRepository();
 
-  var statusAbsensi = "Hadir".obs;
-  var nilaiRata = 84.obs;
+  var nama = "Loading...".obs;
+  var kelas = "...".obs;
+  var statusAbsensi = "...".obs;
+  var nilaiRata = 0.obs;
 
-  var jadwalHariIni = <Map<String, dynamic>>[].obs;
-
-  var pengumuman = <Map<String, dynamic>>[].obs;
-  var articles = <Map<String, dynamic>>[].obs;
-  var notifikasi = <Map<String, dynamic>>[].obs;
+  var jadwalHariIni = <JadwalModel>[].obs;
+  var pengumuman = <PengumumanModel>[].obs;
+  var articles = <ArticleModel>[].obs;
+  var notifikasi = <NotifikasiModel>[].obs;
   var unreadNotifCount = 0.obs;
   var totalPoints = 0.obs;
 
-  var selectedIndex = 0.obs; // Tab index
+  var isLoading = false.obs;
+  var selectedIndex = 0.obs;
 
   void changeTabIndex(int index) {
     selectedIndex.value = index;
@@ -26,218 +33,101 @@ class DashboardSiswaController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadJadwal();
-    loadProfile();
-    loadPengumuman();
-    loadArticles();
-    loadNotifikasi();
-    loadPoints();
+    loadAllData();
   }
 
-  void loadPoints() async {
+  void loadAllData() async {
+    isLoading.value = true;
+    await Future.wait([
+      loadProfile(),
+      loadJadwal(),
+      loadPengumuman(),
+      loadArticles(),
+      loadNotifikasi(),
+      loadPoints(),
+    ]);
+    isLoading.value = false;
+  }
+
+  Future<void> loadPoints() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/poin_siswa.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
-
+      final points = await _dashboardRepository.getPoin();
       int total = 0;
-      for (var item in data) {
-        total += (item['points'] as int);
+      for (var item in points) {
+        total += item.points;
       }
-
-      // Initial base points + history sum
       totalPoints.value = total;
     } catch (e) {
-      print("Error loading points: $e");
+      debugPrint("Error loading points: $e");
     }
   }
 
-  void loadJadwal() async {
+  Future<void> loadJadwal() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/jadwal_siswa.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
-
-      // Get current day name in Indonesian
-      // Note: In real app, use intl package
+      final allJadwal = await _dashboardRepository.getJadwal();
       String hariIni = _getHariIni();
-
-      // Filter jadwal for today
-      var jadwalFiltered =
-          data.where((element) => element['hari'] == hariIni).toList();
-
-      // Map to Observable List
-      jadwalHariIni.value = jadwalFiltered.cast<Map<String, dynamic>>();
+      jadwalHariIni.value = allJadwal.where((j) => j.hari == hariIni).toList();
     } catch (e) {
-      print("Error loading jadwal: $e");
+      debugPrint("Error loading jadwal: $e");
     }
   }
 
   String _getHariIni() {
-    // 1 = Monday, 7 = Sunday
     int weekday = DateTime.now().weekday;
     switch (weekday) {
-      case 1:
-        return "Senin";
-      case 2:
-        return "Selasa";
-      case 3:
-        return "Rabu";
-      case 4:
-        return "Kamis";
-      case 5:
-        return "Jumat";
-      case 6:
-        return "Sabtu"; // Assuming no school on Saturday in this dummy
-      case 7:
-        return "Minggu";
-      default:
-        return "Senin";
+      case 1: return "Senin";
+      case 2: return "Selasa";
+      case 3: return "Rabu";
+      case 4: return "Kamis";
+      case 5: return "Jumat";
+      case 6: return "Sabtu";
+      case 7: return "Minggu";
+      default: return "Senin";
     }
   }
 
-  void loadProfile() async {
+  Future<void> loadProfile() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/dashboard_siswa.json',
-      );
-      final data = jsonDecode(response);
-
-      nama.value = data['nama'];
-      kelas.value = data['kelas'];
-      statusAbsensi.value = data['status_absensi'];
-      nilaiRata.value = data['nilai_rata_rata'];
+      final dashboard = await _dashboardRepository.getDashboardSiswa();
+      nama.value = dashboard.nama;
+      kelas.value = dashboard.kelas;
+      statusAbsensi.value = dashboard.statusAbsensi;
+      nilaiRata.value = dashboard.nilaiRataRata;
     } catch (e) {
-      print("Error loading profile: $e");
+      debugPrint("Error loading profile: $e");
     }
   }
 
-  void loadPengumuman() async {
+  Future<void> loadPengumuman() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/pengumuman.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
-
-      // Sort by DATE descending to show newest chronologically
-      data.sort((a, b) {
-        DateTime? dateA = _parseDate(a['tanggal']);
-        DateTime? dateB = _parseDate(b['tanggal']);
-        if (dateA == null || dateB == null) return 0;
-        return dateB.compareTo(dateA);
-      });
-
-      if (data.isNotEmpty) {
-        // Get latest item's date string to determine "last month"
-        // Format: "10 Mar 2026" -> split to ["10", "Mar", "2026"]
-        String latestDate = data[0]['tanggal'];
-        List<String> parts = latestDate.split(' ');
-
-        if (parts.length >= 3) {
-          String latestMonthYear =
-              "${parts[1]} ${parts[2]}"; // e.g., "Mar 2026"
-
-          // Filter only items with same Month & Year
-          var filtered =
-              data.where((item) {
-                String date = item['tanggal'] ?? "";
-                return date.contains(latestMonthYear);
-              }).toList();
-
-          pengumuman.value = filtered.cast<Map<String, dynamic>>();
-        } else {
-          pengumuman.value = data.take(3).toList().cast<Map<String, dynamic>>();
-        }
-      } else {
-        pengumuman.value = [];
-      }
+      final data = await _dashboardRepository.getPengumuman();
+      pengumuman.value = data;
     } catch (e) {
-      print("Error loading pengumuman: $e");
+      debugPrint("Error loading pengumuman: $e");
     }
   }
 
-  DateTime? _parseDate(String? dateStr) {
-    if (dateStr == null) return null;
+  Future<void> loadNotifikasi() async {
     try {
-      var parts = dateStr.split(" ");
-      if (parts.length < 3) return null;
-      int day = int.parse(parts[0]);
-      int year = int.parse(parts[2]);
-      int month = _getMonthIndex(parts[1]);
-      return DateTime(year, month, day);
+      final data = await _dashboardRepository.getNotifikasi();
+      notifikasi.value = data;
+      unreadNotifCount.value = data.where((n) => !n.isRead).length;
     } catch (e) {
-      return null;
+      debugPrint("Error loading notifikasi: $e");
     }
   }
 
-  int _getMonthIndex(String monthStr) {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "Mei",
-      "Jun",
-      "Jul",
-      "Agu",
-      "Sep",
-      "Okt",
-      "Nov",
-      "Des",
-    ];
-    // English fallback
-    const monthsEng = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
-    int index = months.indexOf(monthStr);
-    if (index == -1) {
-      index = monthsEng.indexOf(monthStr);
-    }
-    return index + 1;
-  }
-
-  void loadNotifikasi() async {
+  Future<void> loadArticles() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/notifikasi.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
-
-      notifikasi.value = data.cast<Map<String, dynamic>>();
-      unreadNotifCount.value =
-          notifikasi.where((n) => n['isRead'] == false).length;
+      final data = await _dashboardRepository.getArticles();
+      articles.value = data;
     } catch (e) {
-      print("Error loading notifikasi: $e");
+      debugPrint("Error loading articles: $e");
     }
   }
 
-  void loadArticles() async {
-    try {
-      final String response = await rootBundle.loadString(
-        'assets/data/articles.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
-      articles.value = data.cast<Map<String, dynamic>>();
-    } catch (e) {
-      print("Error loading articles: $e");
-    }
-  }
-
-  void logout() {
+  void logout() async {
+    await _authRepository.logout();
     Get.offAllNamed('/login');
   }
 }
