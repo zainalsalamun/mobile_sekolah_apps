@@ -24,7 +24,7 @@ class DataSiswaView extends GetView<DataSiswaController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          siswa['name'],
+                          siswa.name,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -32,12 +32,12 @@ class DataSiswaView extends GetView<DataSiswaController> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Kelas: ${siswa['kelas']}',
+                          'Kelas: ${siswa.kelas ?? '-'}',
                           style: const TextStyle(fontSize: 16),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'NISN: ${siswa['nisn']}',
+                          'NISN: ${siswa.nisn ?? '-'}',
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],
