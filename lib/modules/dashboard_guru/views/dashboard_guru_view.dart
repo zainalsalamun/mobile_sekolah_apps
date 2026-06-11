@@ -380,14 +380,14 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      item["mapel"] ?? "",
+                                      item.mapel,
                                       style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
                                     Text(
-                                      item["kelas"] ?? "",
+                                      item.kelas,
                                       style: const TextStyle(
                                         color: AppColors.textMedium,
                                       ),
@@ -397,7 +397,7 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                               ],
                             ),
                             Text(
-                              item["jam"] ?? "",
+                              item.jam,
                               style: const TextStyle(
                                 color: AppColors.textMedium,
                               ),
@@ -626,7 +626,7 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    item["judul"] ?? "",
+                                    item.judul,
                                     style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
@@ -634,7 +634,7 @@ class DashboardGuruView extends GetView<DashboardGuruController> {
                                   ),
                                   const SizedBox(height: 6),
                                   Text(
-                                    item["tanggal"] ?? "",
+                                    item.tanggal,
                                     style: const TextStyle(
                                       fontSize: 13,
                                       color: AppColors.textMedium,
