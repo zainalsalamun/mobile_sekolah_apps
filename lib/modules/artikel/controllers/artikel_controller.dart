@@ -1,9 +1,12 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/article_model.dart';
+import 'package:mobile_sekolah_apps/data/repositories/dashboard_repository.dart';
 
 class ArtikelController extends GetxController {
-  var articles = <Map<String, dynamic>>[].obs;
+  final DashboardRepository _dashboardRepository = DashboardRepository();
+
+  var articles = <ArticleModel>[].obs;
   var isLoading = true.obs;
 
   @override
@@ -15,13 +18,10 @@ class ArtikelController extends GetxController {
   Future<void> loadArticles() async {
     try {
       isLoading.value = true;
-      final String response = await rootBundle.loadString(
-        'assets/data/articles.json',
-      );
-      final List<dynamic> data = json.decode(response);
-      articles.value = data.cast<Map<String, dynamic>>();
+      final data = await _dashboardRepository.getArticles();
+      articles.value = data;
     } catch (e) {
-      print("Error loading articles: $e");
+      debugPrint("Error loading articles: $e");
     } finally {
       isLoading.value = false;
     }
