@@ -1,9 +1,12 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/ebook_model.dart';
+import 'package:mobile_sekolah_apps/data/repositories/ebook_repository.dart';
 
 class EBookController extends GetxController {
-  var ebooks = <Map<String, dynamic>>[].obs;
+  final EbookRepository _ebookRepository = EbookRepository();
+
+  var ebooks = <EbookModel>[].obs;
   var isLoading = true.obs;
 
   @override
@@ -17,7 +20,7 @@ class EBookController extends GetxController {
     try {
       await loadEBooks();
     } catch (e) {
-      print("Error loading ebooks: $e");
+      debugPrint("Error loading ebooks: $e");
     } finally {
       isLoading.value = false;
     }
@@ -25,13 +28,10 @@ class EBookController extends GetxController {
 
   Future<void> loadEBooks() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/ebooks.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
-      ebooks.value = data.cast<Map<String, dynamic>>();
+      final data = await _ebookRepository.getEbooks();
+      ebooks.value = data;
     } catch (e) {
-      print("Error loading ebooks: $e");
+      debugPrint("Error loading ebooks: $e");
     }
   }
 
@@ -39,14 +39,14 @@ class EBookController extends GetxController {
   var searchQuery = ''.obs;
   var isSearching = false.obs;
 
-  List<Map<String, dynamic>> get filteredEbooks {
+  List<EbookModel> get filteredEbooks {
     if (searchQuery.value.isEmpty) {
       return ebooks;
     }
     return ebooks.where((book) {
-      final title = (book['title'] ?? '').toString().toLowerCase();
-      final author = (book['author'] ?? '').toString().toLowerCase();
-      final category = (book['category'] ?? '').toString().toLowerCase();
+      final title = book.title.toLowerCase();
+      final author = book.author.toLowerCase();
+      final category = book.category.toLowerCase();
       final query = searchQuery.value.toLowerCase();
       return title.contains(query) ||
           author.contains(query) ||
