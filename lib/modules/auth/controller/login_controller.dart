@@ -2,64 +2,43 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/repositories/auth_repository.dart';
+import 'package:mobile_sekolah_apps/data/models/user_model.dart';
 
 class LoginController extends GetxController {
+  final AuthRepository _authRepository = AuthRepository();
+  
   var isLoading = false.obs;
 
   var emailController = "".obs;
   var passwordController = "".obs;
 
   RxString selectedRole = "siswa".obs;
-  RxMap<String, dynamic> loggedUser = <String, dynamic>{}.obs;
+  Rx<UserModel?> loggedUser = Rx<UserModel?>(null);
 
   Future<void> login(String username, String password) async {
     try {
       isLoading.value = true;
 
-      // Simulate network delay
-      await Future.delayed(const Duration(seconds: 1));
+      final user = await _authRepository.login(username, password);
+      loggedUser.value = user;
 
-      // Load JSON from assets
-      final String response = await rootBundle.loadString(
-        'assets/data/users.json',
-      );
-      final List<dynamic> users = jsonDecode(response);
-
-      // Find user
-      final user = users.firstWhere(
-        (u) => u['username'] == username && u['password'] == password,
-        orElse: () => null,
+      Get.snackbar(
+        "Berhasil",
+        "Selamat datang ${user.name}",
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
       );
 
-      if (user != null) {
-        // Login Success
-        loggedUser.value = Map<String, dynamic>.from(user);
-
-        Get.snackbar(
-          "Berhasil",
-          "Selamat datang ${user['name']}",
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
-
-        if (user['role'] == 'siswa') {
-          Get.offAllNamed('/dashboard-siswa');
-        } else if (user['role'] == 'guru') {
-          Get.offAllNamed('/dashboard-guru');
-        }
-      } else {
-        // Login Failed
-        Get.snackbar(
-          "Gagal",
-          "Username atau password salah",
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
+      if (user.role == 'siswa') {
+        Get.offAllNamed('/dashboard-siswa');
+      } else if (user.role == 'guru') {
+        Get.offAllNamed('/dashboard-guru');
       }
     } catch (e) {
       Get.snackbar(
-        "Error",
-        "Terjadi kesalahan: $e",
+        "Gagal",
+        "Username atau password salah",
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
