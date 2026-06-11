@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_sekolah_apps/config/app_colors.dart';
 import 'package:mobile_sekolah_apps/core/widgets/app_card.dart';
+import 'package:mobile_sekolah_apps/data/models/absensi_model.dart';
 import 'package:mobile_sekolah_apps/modules/absensi/controller/absensi_controller.dart';
 
 class AbsensiSiswaView extends GetView<AbsensiController> {
@@ -172,7 +173,7 @@ class AbsensiSiswaView extends GetView<AbsensiController> {
 
               if (event != null) {
                 textCol = Colors.white;
-                switch (event['status']) {
+                switch (event.status) {
                   case 'Hadir':
                     bg = AppColors.success;
                     break;
@@ -228,7 +229,7 @@ class AbsensiSiswaView extends GetView<AbsensiController> {
 
   Widget _buildSelectedDayDetail(
     DateTime selected,
-    Map<String, dynamic> events,
+    Map<String, AbsensiModel> events,
   ) {
     String key = "${selected.year}-${selected.month}-${selected.day}";
     var event = events[key];
@@ -253,7 +254,7 @@ class AbsensiSiswaView extends GetView<AbsensiController> {
     }
 
     Color statusColor;
-    switch (event['status']) {
+    switch (event.status) {
       case 'Hadir':
         statusColor = AppColors.success;
         break;
@@ -296,7 +297,7 @@ class AbsensiSiswaView extends GetView<AbsensiController> {
                   border: Border.all(color: statusColor),
                 ),
                 child: Text(
-                  event['status'] ?? "",
+                  event.status,
                   style: TextStyle(
                     color: statusColor,
                     fontWeight: FontWeight.bold,
@@ -309,12 +310,12 @@ class AbsensiSiswaView extends GetView<AbsensiController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildTimeColumn("Masuk", event['masuk'] ?? "-"),
+              _buildTimeColumn("Masuk", event.masuk),
               Container(width: 1, height: 30, color: Colors.grey.shade300),
-              _buildTimeColumn("Pulang", event['pulang'] ?? "-"),
+              _buildTimeColumn("Pulang", event.pulang),
             ],
           ),
-          if (event['note'] != null) ...[
+          if (event.note != null) ...[
             const SizedBox(height: 12),
             Container(
               width: double.infinity,
@@ -324,7 +325,7 @@ class AbsensiSiswaView extends GetView<AbsensiController> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                "Catatan: ${event['note']}",
+                "Catatan: ${event.note}",
                 style: const TextStyle(fontStyle: FontStyle.italic),
               ),
             ),
