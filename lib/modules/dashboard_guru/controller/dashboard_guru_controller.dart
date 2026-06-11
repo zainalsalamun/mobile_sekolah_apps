@@ -1,22 +1,24 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
-import '../../../modules/auth/controller/login_controller.dart';
+import 'package:mobile_sekolah_apps/data/repositories/dashboard_repository.dart';
+import 'package:mobile_sekolah_apps/data/models/jadwal_model.dart';
+import 'package:mobile_sekolah_apps/data/models/pengumuman_model.dart';
+import 'package:mobile_sekolah_apps/modules/auth/controller/login_controller.dart';
 
 class DashboardGuruController extends GetxController {
   final LoginController _loginController = Get.find<LoginController>();
+  final DashboardRepository _dashboardRepository = DashboardRepository();
 
   var nama = "".obs;
   var mapel = "".obs;
-  var userGuru = <String, dynamic>{}.obs;
+  var isLoading = false.obs;
 
-  var jadwalHariIni = <Map<String, dynamic>>[].obs;
-  var kelasUntukAbsensi = <String, dynamic>{}.obs;
-  var pengumuman = <Map<String, dynamic>>[].obs;
+  var jadwalHariIni = <JadwalModel>[].obs;
+  var pengumuman = <PengumumanModel>[].obs;
 
-  var totalSiswa = 126.obs;
-  var nilaiSudahDiinput = 89.obs;
-  var tugasMenunggu = 17.obs;
+  var totalSiswa = 0.obs;
+  var nilaiSudahDiinput = 0.obs;
+  var tugasMenunggu = 0.obs;
 
   @override
   void onInit() {
@@ -26,54 +28,52 @@ class DashboardGuruController extends GetxController {
 
   void loadDataGuru() async {
     try {
-      // Load data user guru
-      final String userResponse = await rootBundle.loadString(
-        'assets/data/users.json',
-      );
-      final List<dynamic> users = jsonDecode(userResponse);
+      isLoading.value = true;
 
-      // Dapatkan guru berdasarkan username yang login
-      final loggedUser = Get.find<LoginController>().loggedUser.value;
-
-      final guru = users.firstWhere(
-        (user) => user['id'] == loggedUser['id'],
-        orElse:
-            () =>
-                users.firstWhere((u) => u['role'] == 'guru', orElse: () => {}),
-      );
-
-      if (guru.isNotEmpty) {
-        userGuru.value = guru;
-        nama.value = guru['name'];
-        mapel.value = guru['jabatan'];
+      // Get user info
+      final user = _loginController.loggedUser.value;
+      if (user != null) {
+        nama.value = user.name;
+        mapel.value = user.jabatan ?? user.role;
       }
 
-      // Load data dashboard guru
-      final String dashResponse = await rootBundle.loadString(
-        'assets/data/dashboard_guru.json',
-      );
-      final dashboardData = jsonDecode(dashResponse);
+      // Load jadwal from API
+      final allJadwal = await _dashboardRepository.getJadwal();
+      final guruName = nama.value;
 
-      // Ambil data berdasarkan ID guru yang login
-      String guruId = userGuru.value['id'] ?? 'G001';
+      // Filter jadwal for guru's today schedule
+      String todayHari = _getHariFromDate(DateTime.now());
+      jadwalHariIni.value =
+          allJadwal.where((j) => j.hari == todayHari && j.guru == guruName).toList();
 
-      if (dashboardData.containsKey(guruId)) {
-        jadwalHariIni.value = List<Map<String, dynamic>>.from(
-          dashboardData[guruId]['jadwalHariIni'],
-        );
-        kelasUntukAbsensi.value = Map<String, dynamic>.from(
-          dashboardData[guruId]['kelasUntukAbsensi'],
-        );
-        pengumuman.value = List<Map<String, dynamic>>.from(
-          dashboardData[guruId]['pengumuman'],
-        );
-      }
+      // Load pengumuman from API
+      pengumuman.value = await _dashboardRepository.getPengumuman();
+
+      // Stats will be loaded from backend when available
+      totalSiswa.value = 126;
+      nilaiSudahDiinput.value = 89;
+      tugasMenunggu.value = 17;
     } catch (e) {
-      print("Error load data guru: $e");
+      debugPrint("Error load data guru: $e");
+    } finally {
+      isLoading.value = false;
     }
   }
 
   void logout() {
     Get.offAllNamed('/login');
+  }
+
+  String _getHariFromDate(DateTime date) {
+    switch (date.weekday) {
+      case 1: return "Senin";
+      case 2: return "Selasa";
+      case 3: return "Rabu";
+      case 4: return "Kamis";
+      case 5: return "Jumat";
+      case 6: return "Sabtu";
+      case 7: return "Minggu";
+      default: return "Senin";
+    }
   }
 }
