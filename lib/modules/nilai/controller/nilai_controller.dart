@@ -1,10 +1,14 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/nilai_model.dart';
+import 'package:mobile_sekolah_apps/data/repositories/nilai_repository.dart';
 
 class NilaiController extends GetxController {
-  var fullMapelList = <Map<String, dynamic>>[].obs;
-  var filteredMapelList = <Map<String, dynamic>>[].obs;
+  final NilaiRepository _nilaiRepository = NilaiRepository();
+
+  var fullMapelList = <NilaiModel>[].obs;
+  var filteredMapelList = <NilaiModel>[].obs;
+  var isLoading = false.obs;
 
   final List<String> semesterList = [
     "Semua Semester",
@@ -14,7 +18,6 @@ class NilaiController extends GetxController {
 
   RxString selectedSemester = "Semua Semester".obs;
 
-  // User role
   RxBool isGuru = false.obs;
   RxBool showAddButton = false.obs;
 
@@ -26,22 +29,21 @@ class NilaiController extends GetxController {
   }
 
   void checkUserRole() {
-    // Simulasi cek role user (nantinya ambil dari auth service)
-    // Untuk demo: jika role guru, tampilkan tombol tambah nilai
+    // TODO: Ambil dari auth service / token
     isGuru.value = true;
     showAddButton.value = isGuru.value;
   }
 
   void loadNilai() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/nilai_siswa.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
-      fullMapelList.value = data.cast<Map<String, dynamic>>();
+      isLoading.value = true;
+      final data = await _nilaiRepository.getNilai();
+      fullMapelList.value = data;
       filterNilai();
     } catch (e) {
-      print("Error loading nilai: $e");
+      debugPrint("Error loading nilai: $e");
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -58,30 +60,30 @@ class NilaiController extends GetxController {
 
     int semesterNumber = int.parse(selectedSemester.value.split(" ").last);
     filteredMapelList.value =
-        fullMapelList.where((item) {
-          return item["semester"] == semesterNumber;
-        }).toList();
+        fullMapelList.where((item) => item.semester == semesterNumber).toList();
   }
 
-  Map<String, dynamic> getDetailNilai(String mapelName) {
-    return filteredMapelList.firstWhere(
-      (element) => element['nama'] == mapelName,
-      orElse: () => {},
+  NilaiModel? getDetailNilai(String mapelName) {
+    try {
+      return filteredMapelList.firstWhere(
+        (element) => element.nama == mapelName,
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
+  void addNewNilai(Map<String, dynamic> data) {
+    final newNilai = NilaiModel(
+      nama: data["nama"] ?? "",
+      rata: data["rata"] ?? 0,
+      kkm: data["kkm"] ?? 75,
+      semester: data["semester"] ?? 1,
+      tugas: [],
+      uts: 0,
+      uas: 0,
     );
-  }
-
-  void addNewNilai(Map<String, dynamic> nilaiBaru) {
-    fullMapelList.add(nilaiBaru);
-    filterNilai();
-  }
-
-  void updateNilai(int index, Map<String, dynamic> nilaiUpdate) {
-    fullMapelList[index] = nilaiUpdate;
-    filterNilai();
-  }
-
-  void deleteNilai(int index) {
-    fullMapelList.removeAt(index);
+    fullMapelList.add(newNilai);
     filterNilai();
   }
 }
