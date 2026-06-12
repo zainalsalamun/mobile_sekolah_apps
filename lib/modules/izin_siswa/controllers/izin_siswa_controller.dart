@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/repositories/izin_repository.dart';
 
 class IzinSiswaController extends GetxController {
+  final IzinRepository _izinRepository = IzinRepository();
+
   final selectedType = "Izin".obs;
   final selectedDate = Rxn<DateTime>();
   final descriptionController = TextEditingController();
-  // Using String path for simulation since we don't have image_picker
   final selectedImage = Rxn<String>();
+  final isSubmitting = false.obs;
 
   final List<String> izinTypes = [
     "Izin",
@@ -29,7 +32,7 @@ class IzinSiswaController extends GetxController {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.light(
-              primary: Color(0xFF1E6FFB), // AppColors.primary
+              primary: Color(0xFF1E6FFB),
               onPrimary: Colors.white,
               onSurface: Colors.black,
             ),
@@ -44,16 +47,13 @@ class IzinSiswaController extends GetxController {
   }
 
   Future<void> pickImage() async {
-    // Simulated image picker since package is not available
     Get.snackbar(
       "Info",
       "Fitur pilih gambar divirtualisasi (image_picker not installed)",
     );
-    // Simulating a successful pick
-    // selectedImage.value = "/path/to/virtual/image.jpg";
   }
 
-  void submitIzin() {
+  Future<void> submitIzin() async {
     if (selectedDate.value == null) {
       Get.snackbar(
         "Error",
@@ -73,16 +73,36 @@ class IzinSiswaController extends GetxController {
       return;
     }
 
-    // Process submission...
-    Get.snackbar(
-      "Sukses",
-      "Pengajuan izin berhasil dikirim",
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-    );
+    try {
+      isSubmitting.value = true;
 
-    // Ideally go back or clear form
-    Get.back();
+      final data = {
+        'type': selectedType.value,
+        'date': selectedDate.value!.toIso8601String(),
+        'description': descriptionController.text,
+        'image': selectedImage.value,
+      };
+
+      await _izinRepository.submitIzin(data);
+
+      Get.snackbar(
+        "Sukses",
+        "Pengajuan izin berhasil dikirim",
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+
+      Get.back();
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        "Gagal mengirim pengajuan izin: $e",
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } finally {
+      isSubmitting.value = false;
+    }
   }
 
   @override
