@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_sekolah_apps/config/app_colors.dart';
 import 'package:mobile_sekolah_apps/core/routes/app_routes.dart';
+import 'package:mobile_sekolah_apps/data/models/ebook_model.dart';
 import '../controllers/ebook_controller.dart';
 
 class EBookView extends GetView<EBookController> {
@@ -125,10 +126,10 @@ class EBookView extends GetView<EBookController> {
     );
   }
 
-  Widget _buildBookCard(Map<String, dynamic> book) {
+  Widget _buildBookCard(EbookModel book) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoutes.ebookDetail, arguments: book);
+        Get.toNamed(AppRoutes.ebookDetail, arguments: book.toJson());
       },
       child: Container(
         decoration: BoxDecoration(
@@ -152,7 +153,7 @@ class EBookView extends GetView<EBookController> {
                   top: Radius.circular(12),
                 ),
                 child: Image.network(
-                  book['cover_url'] ?? '',
+                  book.coverUrl,
                   width: double.infinity,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
@@ -187,7 +188,7 @@ class EBookView extends GetView<EBookController> {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      book['category'] ?? 'Umum',
+                      book.category,
                       style: const TextStyle(
                         fontSize: 10,
                         color: AppColors.primary,
@@ -197,7 +198,7 @@ class EBookView extends GetView<EBookController> {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    book['title'] ?? 'No Title',
+                    book.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -209,7 +210,7 @@ class EBookView extends GetView<EBookController> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    book['author'] ?? 'Unknown Author',
+                    book.author,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
@@ -224,7 +225,7 @@ class EBookView extends GetView<EBookController> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        "${book['rating'] ?? 0.0}",
+                        "${book.rating}",
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
