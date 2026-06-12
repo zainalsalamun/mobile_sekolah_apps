@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/nilai_model.dart';
 import 'package:mobile_sekolah_apps/modules/nilai/controller/nilai_controller.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/app_badge.dart';
@@ -11,25 +12,22 @@ class NilaiDetailView extends GetView<NilaiController> {
   @override
   Widget build(BuildContext context) {
     final String mapelName = Get.arguments ?? "";
-    final Map<String, dynamic> detail = controller.getDetailNilai(mapelName);
+    final NilaiModel? detail = controller.getDetailNilai(mapelName);
 
     // Construct display list
     List<Map<String, dynamic>> data = [];
 
-    if (detail.isNotEmpty) {
-      if (detail["tugas"] != null) {
-        List t = detail["tugas"];
-        for (int i = 0; i < t.length; i++) {
-          data.add({"tipe": "Tugas ${i + 1}", "nilai": t[i]});
+    if (detail != null) {
+      if (detail.tugas.isNotEmpty) {
+        for (int i = 0; i < detail.tugas.length; i++) {
+          data.add({"tipe": "Tugas ${i + 1}", "nilai": detail.tugas[i]});
         }
       }
-      if (detail["uts"] != null)
-        data.add({"tipe": "UTS", "nilai": detail["uts"]});
-      if (detail["uas"] != null)
-        data.add({"tipe": "UAS", "nilai": detail["uas"]});
+      data.add({"tipe": "UTS", "nilai": detail.uts});
+      data.add({"tipe": "UAS", "nilai": detail.uas});
     }
 
-    final int kkm = detail["kkm"] ?? 75;
+    final int kkm = detail?.kkm ?? 75;
 
     return Scaffold(
       appBar: AppBar(title: Text("Nilai - $mapelName")),
