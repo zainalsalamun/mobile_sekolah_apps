@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/jadwal_model.dart';
 import 'package:mobile_sekolah_apps/modules/jadwal/controller/jadwal_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../config/app_colors.dart';
@@ -73,12 +74,12 @@ class JadwalView extends GetView<JadwalController> {
           return Padding(
             padding: const EdgeInsets.only(bottom: 12),
             child: JadwalItem(
-              jam: item["jam"]!,
-              mapel: item["mapel"]!,
-              guru: item["guru"]!,
-              kelas: item["kelas"]!,
-              icon: item["icon"] ?? "📘",
-              tugas: item["tugas"],
+              jam: item.jam,
+              mapel: item.mapel,
+              guru: item.guru,
+              kelas: item.kelas,
+              icon: item.icon,
+              tugas: item.tugas,
             ),
           );
         },
@@ -218,12 +219,12 @@ class JadwalView extends GetView<JadwalController> {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: JadwalItem(
-                    jam: item["jam"]!,
-                    mapel: item["mapel"]!,
-                    guru: item["guru"]!,
-                    kelas: item["kelas"]!,
-                    icon: item["icon"] ?? "📘",
-                    tugas: item["tugas"],
+                    jam: item.jam,
+                    mapel: item.mapel,
+                    guru: item.guru,
+                    kelas: item.kelas,
+                    icon: item.icon,
+                    tugas: item.tugas,
                   ),
                 );
               },
@@ -250,7 +251,7 @@ class JadwalView extends GetView<JadwalController> {
         child: Column(
           children:
               controller.hariList.map((hari) {
-                List<Map<String, dynamic>> list =
+                List<JadwalModel> list =
                     controller.jadwalMingguan[hari] ?? [];
                 if (list.isEmpty) return const SizedBox.shrink();
 
@@ -284,11 +285,11 @@ class JadwalView extends GetView<JadwalController> {
                       (item) => Padding(
                         padding: const EdgeInsets.only(bottom: 12),
                         child: JadwalItem(
-                          jam: item["jam"]!,
-                          mapel: item["mapel"]!,
-                          guru: item["guru"]!,
-                          kelas: item["kelas"]!,
-                          icon: item["icon"] ?? "📘",
+                          jam: item.jam,
+                          mapel: item.mapel,
+                          guru: item.guru,
+                          kelas: item.kelas,
+                          icon: item.icon,
                         ),
                       ),
                     ),
