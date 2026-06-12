@@ -1,11 +1,17 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/absensi_model.dart';
+import 'package:mobile_sekolah_apps/data/models/izin_model.dart';
+import 'package:mobile_sekolah_apps/data/repositories/absensi_repository.dart';
+import 'package:mobile_sekolah_apps/data/repositories/izin_repository.dart';
 
 class HistoriController extends GetxController {
-  var historyAbsensi = <Map<String, dynamic>>[].obs;
-  var historyIzin = <Map<String, dynamic>>[].obs;
-  var isLoading = true.obs;
+  final AbsensiRepository _absensiRepository = AbsensiRepository();
+  final IzinRepository _izinRepository = IzinRepository();
+
+  final historyAbsensi = <AbsensiModel>[].obs;
+  final historyIzin = <IzinModel>[].obs;
+  final isLoading = true.obs;
 
   @override
   void onInit() {
@@ -18,7 +24,7 @@ class HistoriController extends GetxController {
     try {
       await Future.wait([loadAbsensi(), loadIzin()]);
     } catch (e) {
-      print("Error loading history data: $e");
+      debugPrint("Error loading history data: $e");
     } finally {
       isLoading.value = false;
     }
@@ -26,25 +32,19 @@ class HistoriController extends GetxController {
 
   Future<void> loadAbsensi() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/absensi_siswa.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
-      historyAbsensi.value = data.cast<Map<String, dynamic>>();
+      final data = await _absensiRepository.getAbsensi();
+      historyAbsensi.value = data;
     } catch (e) {
-      print("Error loading absensi history: $e");
+      debugPrint("Error loading absensi history: $e");
     }
   }
 
   Future<void> loadIzin() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/izin_siswa.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
-      historyIzin.value = data.cast<Map<String, dynamic>>();
+      final data = await _izinRepository.getIzin();
+      historyIzin.value = data;
     } catch (e) {
-      print("Error loading izin history: $e");
+      debugPrint("Error loading izin history: $e");
     }
   }
 }
