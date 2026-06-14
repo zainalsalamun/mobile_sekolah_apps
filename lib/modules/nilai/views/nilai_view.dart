@@ -12,18 +12,14 @@ class NilaiView extends GetView<NilaiController> {
     if (controller.filteredMapelList.isEmpty) return 0;
     final total = controller.filteredMapelList.fold<double>(
       0,
-      (sum, item) => sum + (item["rata"] as num).toDouble(),
+      (sum, item) => sum + item.rata.toDouble(),
     );
     return total / controller.filteredMapelList.length;
   }
 
   int get jumlahLulus {
     return controller.filteredMapelList
-        .where(
-          (item) =>
-              (item["rata"] as num).toDouble() >=
-              (item["kkm"] as num).toDouble(),
-        )
+        .where((item) => item.rata.toDouble() >= item.kkm.toDouble())
         .length;
   }
 
@@ -385,8 +381,8 @@ class NilaiView extends GetView<NilaiController> {
                 separatorBuilder: (_, __) => const SizedBox(height: 12),
                 itemBuilder: (context, index) {
                   final mapel = controller.filteredMapelList[index];
-                  final nilaiRata = (mapel["rata"] as num).toDouble();
-                  final kkm = (mapel["kkm"] as num).toDouble();
+                  final nilaiRata = mapel.rata.toDouble();
+                  final kkm = mapel.kkm.toDouble();
 
                   bool lulus = nilaiRata >= kkm;
                   final gradeColor = getGradeColor(nilaiRata, kkm);
@@ -394,10 +390,8 @@ class NilaiView extends GetView<NilaiController> {
 
                   return AppCard(
                     onTap:
-                        () => Get.toNamed(
-                          "/nilai-detail",
-                          arguments: mapel["nama"],
-                        ),
+                        () =>
+                            Get.toNamed("/nilai-detail", arguments: mapel.nama),
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -428,7 +422,7 @@ class NilaiView extends GetView<NilaiController> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          mapel["nama"],
+                                          mapel.nama,
                                           style: const TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.w600,
@@ -437,7 +431,7 @@ class NilaiView extends GetView<NilaiController> {
                                         ),
                                         const SizedBox(height: 2),
                                         Text(
-                                          "KKM Minimum: ${mapel["kkm"]}",
+                                          "KKM Minimum: ${mapel.kkm}",
                                           style: const TextStyle(
                                             color: AppColors.textMedium,
                                             fontSize: 12,
