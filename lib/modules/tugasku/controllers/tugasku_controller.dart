@@ -1,9 +1,12 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/tugas_model.dart';
+import 'package:mobile_sekolah_apps/data/repositories/tugas_repository.dart';
 
 class TugaskuController extends GetxController {
-  final assignments = <Map<String, dynamic>>[].obs;
+  final TugasRepository _tugasRepository = TugasRepository();
+
+  final assignments = <TugasModel>[].obs;
   final isLoading = true.obs;
 
   @override
@@ -15,13 +18,10 @@ class TugaskuController extends GetxController {
   Future<void> loadAssignments() async {
     try {
       isLoading.value = true;
-      final String response = await rootBundle.loadString(
-        'assets/data/tugasku.json',
-      );
-      final List<dynamic> data = json.decode(response);
-      assignments.value = data.cast<Map<String, dynamic>>();
+      final data = await _tugasRepository.getTugasku();
+      assignments.value = data;
     } catch (e) {
-      print("Error loading assignments: $e");
+      debugPrint("Error loading assignments: $e");
     } finally {
       isLoading.value = false;
     }
