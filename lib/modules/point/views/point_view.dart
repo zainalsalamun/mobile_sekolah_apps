@@ -102,7 +102,7 @@ class PointView extends GetView<PointController> {
                     (context, index) => const SizedBox(height: 16),
                 itemBuilder: (context, index) {
                   final item = controller.pointsHistory[index];
-                  final isPlus = item['type'] == 'plus';
+                  final isPlus = item.type == 'plus';
 
                   return Container(
                     padding: const EdgeInsets.all(16),
@@ -142,7 +142,7 @@ class PointView extends GetView<PointController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                item['activity'],
+                                item.activity,
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -151,7 +151,7 @@ class PointView extends GetView<PointController> {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                item['date'],
+                                item.date,
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.grey[500],
@@ -161,7 +161,7 @@ class PointView extends GetView<PointController> {
                           ),
                         ),
                         Text(
-                          "${item['points'] > 0 ? '+' : ''}${item['points']}",
+                          "${item.points > 0 ? '+' : ''}${item.points}",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
