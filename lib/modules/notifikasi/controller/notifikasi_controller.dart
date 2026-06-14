@@ -1,12 +1,15 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../modules/auth/controller/login_controller.dart';
+import 'package:mobile_sekolah_apps/data/models/notifikasi_model.dart';
+import 'package:mobile_sekolah_apps/data/repositories/dashboard_repository.dart';
+import 'package:mobile_sekolah_apps/modules/auth/controller/login_controller.dart';
 
 class NotifikasiController extends GetxController {
   final LoginController loginC = Get.find<LoginController>();
+  final DashboardRepository _dashboardRepository = DashboardRepository();
+
   var isLoading = false.obs;
-  var daftarNotifikasi = <Map<String, dynamic>>[].obs;
+  var daftarNotifikasi = <NotifikasiModel>[].obs;
   var unreadCount = 0.obs;
 
   @override
@@ -18,58 +21,60 @@ class NotifikasiController extends GetxController {
   Future<void> loadNotifikasi() async {
     try {
       isLoading.value = true;
-      final String response = await rootBundle.loadString(
-        'assets/data/notifikasi.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
+      final data = await _dashboardRepository.getNotifikasi();
 
-      // Filter notifikasi yang sesuai role guru
-      final isGuru = loginC.loggedUser['role'] == 'guru';
+      // Filter notifikasi berdasarkan role
+      final user = loginC.loggedUser.value;
+      final isGuru = user?.role == 'guru';
 
-      daftarNotifikasi.value =
-          data
-              .where((item) {
-                final type = item['type'] as String;
-                if (isGuru) {
-                  // Untuk guru, tampilkan notifikasi yang relevan: izin, absensi, tugas
-                  return ['izin', 'absensi', 'tugas', 'umum'].contains(type);
-                } else {
-                  // Untuk siswa, semua notifikasi
-                  return true;
-                }
-              })
-              .map((item) => Map<String, dynamic>.from(item))
-              .toList();
+      if (isGuru) {
+        daftarNotifikasi.value = data.where((item) {
+          return ['izin', 'absensi', 'tugas', 'umum'].contains(item.type);
+        }).toList();
+      } else {
+        daftarNotifikasi.value = data;
+      }
 
       hitungUnread();
     } catch (e) {
-      print("Error load notifikasi: $e");
+      debugPrint("Error load notifikasi: $e");
     } finally {
       isLoading.value = false;
     }
   }
 
   void hitungUnread() {
-    unreadCount.value =
-        daftarNotifikasi.where((item) => item['isRead'] == false).length;
+    unreadCount.value = daftarNotifikasi.where((item) => !item.isRead).length;
   }
 
-  void markAsRead(String id) {
-    final index = daftarNotifikasi.indexWhere(
-      (item) => item['id'].toString() == id,
-    );
+  void markAsRead(int id) {
+    final index = daftarNotifikasi.indexWhere((item) => item.id == id);
     if (index != -1) {
-      daftarNotifikasi[index]['isRead'] = true;
-      daftarNotifikasi.refresh();
+      // Create new instance with isRead = true since model is immutable
+      var old = daftarNotifikasi[index];
+      daftarNotifikasi[index] = NotifikasiModel(
+        id: old.id,
+        title: old.title,
+        message: old.message,
+        date: old.date,
+        isRead: true,
+        type: old.type,
+      );
       hitungUnread();
     }
   }
 
   void markAllAsRead() {
-    for (var item in daftarNotifikasi) {
-      item['isRead'] = true;
-    }
-    daftarNotifikasi.refresh();
+    daftarNotifikasi.value = daftarNotifikasi.map((item) {
+      return NotifikasiModel(
+        id: item.id,
+        title: item.title,
+        message: item.message,
+        date: item.date,
+        isRead: true,
+        type: item.type,
+      );
+    }).toList();
     hitungUnread();
   }
 }
