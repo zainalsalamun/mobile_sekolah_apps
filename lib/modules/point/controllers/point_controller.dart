@@ -1,9 +1,12 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/poin_model.dart';
+import 'package:mobile_sekolah_apps/data/repositories/dashboard_repository.dart';
 
 class PointController extends GetxController {
-  final pointsHistory = <Map<String, dynamic>>[].obs;
+  final DashboardRepository _dashboardRepository = DashboardRepository();
+
+  final pointsHistory = <PoinModel>[].obs;
   final isLoading = true.obs;
   final totalPoints = 0.obs;
 
@@ -16,20 +19,17 @@ class PointController extends GetxController {
   Future<void> loadPoints() async {
     try {
       isLoading.value = true;
-      final String response = await rootBundle.loadString(
-        'assets/data/poin_siswa.json',
-      );
-      final List<dynamic> data = json.decode(response);
-      pointsHistory.value = data.cast<Map<String, dynamic>>();
+      final data = await _dashboardRepository.getPoin();
+      pointsHistory.value = data;
 
       // Calculate total points
       int total = 0;
       for (var item in data) {
-        total += (item['points'] as int);
+        total += item.points;
       }
       totalPoints.value = total;
     } catch (e) {
-      print("Error loading points: $e");
+      debugPrint("Error loading points: $e");
     } finally {
       isLoading.value = false;
     }
