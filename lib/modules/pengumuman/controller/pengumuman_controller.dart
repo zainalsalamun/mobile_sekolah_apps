@@ -1,9 +1,13 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_sekolah_apps/data/models/pengumuman_model.dart';
+import 'package:mobile_sekolah_apps/data/repositories/dashboard_repository.dart';
 
 class PengumumanController extends GetxController {
-  var pengumumanList = <Map<String, dynamic>>[].obs;
+  final DashboardRepository _dashboardRepository = DashboardRepository();
+
+  var isLoading = false.obs;
+  var pengumumanList = <PengumumanModel>[].obs;
 
   @override
   void onInit() {
@@ -11,19 +15,19 @@ class PengumumanController extends GetxController {
     loadPengumumanList();
   }
 
-  void loadPengumumanList() async {
+  Future<void> loadPengumumanList() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/pengumuman.json',
-      );
-      final List<dynamic> data = jsonDecode(response);
+      isLoading.value = true;
+      final data = await _dashboardRepository.getPengumuman();
 
       // Sort by id descending to show newest first
-      data.sort((a, b) => (b['id'] as int).compareTo(a['id'] as int));
+      data.sort((a, b) => b.id.compareTo(a.id));
 
-      pengumumanList.value = data.cast<Map<String, dynamic>>();
+      pengumumanList.value = data;
     } catch (e) {
-      print("Error loading pengumuman: $e");
+      debugPrint("Error loading pengumuman: $e");
+    } finally {
+      isLoading.value = false;
     }
   }
 }
