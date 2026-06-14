@@ -29,12 +29,16 @@ class PengumumanView extends GetView<PengumumanController> {
             var item = controller.pengumumanList[index];
 
             return AppCard(
-              onTap: () => Get.toNamed("/pengumuman-detail", arguments: item),
+              onTap:
+                  () => Get.toNamed(
+                    "/pengumuman-detail",
+                    arguments: item.toJson(),
+                  ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item["judul"]!,
+                    item.judul,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -43,7 +47,7 @@ class PengumumanView extends GetView<PengumumanController> {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    item["tanggal"]!,
+                    item.tanggal,
                     style: const TextStyle(color: AppColors.textMedium),
                   ),
                 ],
