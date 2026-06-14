@@ -89,7 +89,7 @@ class NotifikasiView extends StatelessWidget {
                 child: AppCard(
                   padding: const EdgeInsets.all(16),
                   color:
-                      notif['isRead']
+                      notif.isRead
                           ? Colors.white
                           : AppColors.primary.withOpacity(0.05),
                   child: Row(
@@ -99,12 +99,12 @@ class NotifikasiView extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: getTypeColor(notif['type']).withOpacity(0.1),
+                          color: getTypeColor(notif.type).withOpacity(0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Icon(
-                          getTypeIcon(notif['type']),
-                          color: getTypeColor(notif['type']),
+                           getTypeIcon(notif.type),
+                          color: getTypeColor(notif.type),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -118,17 +118,17 @@ class NotifikasiView extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    notif['title'],
+                                    notif.title,
                                     style: TextStyle(
                                       fontWeight:
-                                          notif['isRead']
+                                          notif.isRead
                                               ? FontWeight.normal
                                               : FontWeight.bold,
                                       fontSize: 15,
                                     ),
                                   ),
                                 ),
-                                if (!notif['isRead'])
+                                if (!notif.isRead)
                                   Container(
                                     width: 8,
                                     height: 8,
@@ -141,7 +141,7 @@ class NotifikasiView extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              notif['message'],
+                               notif.message,
                               style: TextStyle(
                                 color: Colors.grey[600],
                                 fontSize: 13,
@@ -149,7 +149,7 @@ class NotifikasiView extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              notif['date'],
+                               notif.date,
                               style: TextStyle(
                                 color: Colors.grey[400],
                                 fontSize: 11,
